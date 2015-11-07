@@ -65,7 +65,7 @@ server.get('/user/get', function(req, res, next) {
 });
 
 server.get('/user/get/:id', function(req, res, next) {
-  return res.redirect('/user/get?userID='+req.params.id, next);
+  return res.redirect(apiNS() + '/user/get?userID='+req.params.id, next);
 });
 
 server.get('/driver/get', function(req, res, next) {
@@ -81,7 +81,7 @@ server.get('/driver/get', function(req, res, next) {
 });
 
 server.get('/driver/get/:id', function(req, res, next) {
-  return res.redirect('/driver/get?driverID='+req.params.id, next);
+  return res.redirect(apiNS() + '/driver/get?driverID='+req.params.id, next);
 });
 
 server.get('/user/list', function(req, res, next) {
@@ -143,7 +143,7 @@ server.get('/booking/get', function(req, res, next) {
 });
 
 server.get('/booking/get/:id', function(req, res, next) {
-  return res.redirect('/booking/get?bookingID='+req.params.id, next);
+  return res.redirect(apiNS() + '/booking/get?bookingID='+req.params.id, next);
 });
 
 server.get('/booking/:id/delete', function(req, res, next) {
@@ -172,8 +172,8 @@ server.post('/booking/create', function(req, res, next) {
       end_longitude: p.end_longitude,
       end_latitude: p.end_latitude,
       endPoint: r.point(parseFloat(p.end_longitude), parseFloat(p.end_latitude)),
-      pickupTS: p.pickupTS,
-      isAllNight: p.isAllNight // true means the valet is for all niiight long
+      pickupTS: p.pickupTS || now(),
+      isAllNight: p.isAllNight || false // true means the valet is for all niiight long
     })
     .run(conn, function(err, result) {
       return handleSimpleTrans(err, result, conn, res);
@@ -237,7 +237,7 @@ server.get('/booking/complete', function(req, res, next) {
 });
 
 server.get('/booking/:id/complete', function(req, res, next) {
-  return res.redirect('/booking/complete?bookingID='+req.params.id+'&state='+req.params.state, next);
+  return res.redirect(apiNS() + '/booking/complete?bookingID='+req.params.id+'&state='+req.params.state, next);
 });
 
 server.get('/booking/cancel', function(req, res, next) {
@@ -252,7 +252,7 @@ server.get('/booking/cancel', function(req, res, next) {
 });
 
 server.get('/booking/:id/cancel', function(req, res, next) {
-  return res.redirect('/booking/cancel?bookingID='+req.params.id+'&state='+req.params.state, next);
+  return res.redirect(apiNS() + '/booking/cancel?bookingID='+req.params.id+'&state='+req.params.state, next);
 });
 
 // params: bookingID, driverID
@@ -269,7 +269,7 @@ server.get('/booking/accept', function(req, res, next) {
 });
 
 server.get('/booking/:id/accept', function(req, res, next) {
-  return res.redirect('/booking/accept?bookingID='+req.params.id+'&driverID='+req.params.driverID, next);
+  return res.redirect(apiNS() + '/booking/accept?bookingID='+req.params.id+'&driverID='+req.params.driverID, next);
 });
 
 /** SEED DATA */
