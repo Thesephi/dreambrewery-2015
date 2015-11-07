@@ -52,6 +52,13 @@ server.get('/test', function(req, res, next) {
   res.json(200, "Hi, Drever User!");
 });
 
+server.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 /** APIS */
 
 server.get('/user/get', function(req, res, next) {
