@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('SearchCtrl', function($scope, uiGmapGoogleMapApi) {
+.controller('SearchCtrl', function($scope, uiGmapGoogleMapApi, $timeout) {
   var uiGmapGoogleMap ='';
   var directionsDisplay ='';
 
@@ -25,6 +25,13 @@ angular.module('starter.controllers', [])
       zoom: 18,
       control : {}
     };
+    uiGmapGoogleMapApi.then(function(maps) {
+      uiGmapGoogleMap = maps;
+      directionsDisplay = new maps.DirectionsRenderer({ polylineOptions: {strokeColor:"#969696", strokeWeight:5}, suppressMarkers:true });
+      $timeout(function(){
+        directionsDisplay.setMap($scope.map.control.getGMap());
+      }, 100);
+    });
   }
 
   // init valet around
@@ -66,12 +73,10 @@ angular.module('starter.controllers', [])
           lng = $scope.markerStart.coords.longitude;
           findNameLocation(lat,lng);
           $scope.map.center = { latitude: lat, longitude: lng }
-          console.log(lat, lng);
-          //find name location
         }
       }
     }
-    console.log($scope.markerStart)
+    // console.log($scope.markerStart)
   }
 
   //find name base on lat, lng
@@ -86,11 +91,6 @@ angular.module('starter.controllers', [])
       }
     });
   }
-
-  // check map loading
-  uiGmapGoogleMapApi.then(function(maps) {
-    console.log('a');
-  });
 
   // search start point
   $scope.doMapStart = function(item) {
@@ -117,6 +117,24 @@ angular.module('starter.controllers', [])
     $scope.markerStart.options = {
       draggable: false
     }
+    $scope.vehicles = [];
+    //calc route
+    maps = uiGmapGoogleMap;
+    directionsService = new maps.DirectionsService();
+    var start = $scope.markerStart.latlng;
+    var end = $scope.markerEnd.latlng;
+    var request = {
+      origin: start,
+      destination: end,
+      optimizeWaypoints: true,
+      travelMode: maps.TravelMode.DRIVING
+    };
+    directionsService.route(request, function(response, status) {
+      console.log(response);
+      if (status == maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      }
+    })
   };
 
   //only in Singapore
