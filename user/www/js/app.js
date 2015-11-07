@@ -57,6 +57,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ion-google-place', '
     }
   })
 
+  .state('app.waiting', {
+    url: '/waiting',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/waiting.html',
+        controller: 'WaitingCtrl'
+      }
+    }
+  })
+
   .state('test-gimmie', {
     url: '/test/gimmie',
     templateUrl: 'templates/test/gimmie.html',
