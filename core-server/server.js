@@ -107,11 +107,17 @@ server.get('/driver/list', function(req, res, next) {
 });
 
 server.get('/booking/list', function(req, res, next) {
+  var p = req.params;
   dbconn(function(err, conn) {
     if(err) return res.send(err);
     r.table(BOOKING)
     .coerceTo('array')
     .run(conn, function(err, result) {
+      if('state' in p) {
+        result = result.filter(function(booking) {
+          return booking.state === parseInt(p.state);
+        });
+      }
       return handleSimpleTrans(err, result, conn, res);
     });
   });
@@ -189,16 +195,20 @@ server.get('/booking/search', function(req, res, next) {
     r.table(BOOKING)
     .getNearest(r.point(parseFloat(p.lng), parseFloat(p.lat)), {index: 'startPoint'})
     .run(conn, function(err, result) {
-      var ret;
-      result = result.map(function(mess) {
-        ret = mess.doc;
-        ret.dist = mess.dist;
-        return ret;
-      });
-      result = result.filter(function(booking) {
-        return booking.state === 0;
-      });
-      return handleSimpleTrans(err, result, conn, res);
+      if(result.length > 0) {
+        var ret;
+        result = result.map(function(mess) {
+          ret = mess.doc;
+          ret.dist = mess.dist;
+          return ret;
+        });
+        result = result.filter(function(booking) {
+          return booking.state === 0;
+        });
+        return handleSimpleTrans(err, result, conn, res);
+      } else {
+        return res.redirect(apiNS() + '/booking/list?state=0', next);
+      }
     });
   });
 });
