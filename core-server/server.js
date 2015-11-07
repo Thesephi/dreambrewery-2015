@@ -64,16 +64,24 @@ server.get('/user/get', function(req, res, next) {
   });
 });
 
+server.get('/user/get/:id', function(req, res, next) {
+  return res.redirect('/user/get?userID='+req.params.id, next);
+});
+
 server.get('/driver/get', function(req, res, next) {
   var p = req.params;
   dbconn(function(err, conn) {
-    if(err) return res.send(err);
+    if(err) return res.json(502, err.toString());
     r.table(DRIVER)
     .get(p.driverID)
     .run(conn, function(err, result) {
       return handleSimpleTrans(err, result, conn, res);
     });
   });
+});
+
+server.get('/driver/get/:id', function(req, res, next) {
+  return res.redirect('/driver/get?driverID='+req.params.id, next);
 });
 
 server.get('/user/list', function(req, res, next) {
@@ -122,7 +130,7 @@ server.get('/booking/get', function(req, res, next) {
         // inject driver's info into the booking before returning back to the client
         client1.get(apiNS()+'/driver/get?driverID='+booking.driverID,
         function(err, req, result, obj) {
-          if(err) return res.json(500, err.toString());
+          if(err) return res.json(500, 'Cannot find driver data for this booking: '+err.toString());
           booking.driver = obj;
           return handleSimpleTrans(err, booking, conn, res);
         });
@@ -228,6 +236,10 @@ server.get('/booking/complete', function(req, res, next) {
   });
 });
 
+server.get('/booking/:id/complete', function(req, res, next) {
+  return res.redirect('/booking/complete?bookingID='+req.params.id+'&state='+req.params.state, next);
+});
+
 server.get('/booking/cancel', function(req, res, next) {
   var data = {
     bookingID: req.params.bookingID,
@@ -237,6 +249,10 @@ server.get('/booking/cancel', function(req, res, next) {
     if(err) return res.json(500, err);
     return res.send(obj);
   });
+});
+
+server.get('/booking/:id/cancel', function(req, res, next) {
+  return res.redirect('/booking/cancel?bookingID='+req.params.id+'&state='+req.params.state, next);
 });
 
 // params: bookingID, driverID
@@ -250,6 +266,10 @@ server.get('/booking/accept', function(req, res, next) {
     if(err) return res.json(500, err);
     return res.send(obj);
   });
+});
+
+server.get('/booking/:id/accept', function(req, res, next) {
+  return res.redirect('/booking/accept?bookingID='+req.params.id+'&driverID='+req.params.driverID, next);
 });
 
 /** SEED DATA */
@@ -324,7 +344,9 @@ function handleSimpleTrans(err, result, conn, res) {
   conn.close();
   if(err)
     return res.json(500, err);
-  return res.json(result);
+  if(result)
+    return res.json(200, result);
+  return res.send(404);
 }
 
 function insertTestUser(res) {
