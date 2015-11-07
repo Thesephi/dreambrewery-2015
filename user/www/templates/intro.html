@@ -1,17 +1,12 @@
 <ion-view view-title="Intro">
-  <ion-content>
-    <div class="bar bar-header">
-      <h1 class="title">Hi, wanna go somewhere?</h1>
-    </div>
-  </ion-content>
-  <ion-footer-bar>
-    <div class="row">
-      <div class="col">
-        <button ui-sref="test-gimmie" class="button button-block button-positive">Setup Gimmie</button>
-      </div>
-      <!--<div class="col">
-        <button class="button button-block">Button</button>
-      </div>-->
-    </div>
-  </ion-footer-bar>
+  <ion-header-bar class="bar-stable bar bar-header" align-title="center">
+    <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+    </button>
+      </span></div><div class="title title-center header-item" style="left: 45px; right: 45px;">Intro</div>
+    </ion-header-bar>
+  <div class="content intro-state">
+    <a href="#" ui-sref="app.search" style="background-image: url(img/intro-now.png);"></a>
+    <a href="#" style="background-image: url(img/intro-advance.png);"></a>
+    <a href="#" style="background-image: url(img/intro-block.png);"></a>
+  </div>
 </ion-view>
