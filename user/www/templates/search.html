@@ -1,5 +1,7 @@
 <ion-view view-title="Search">
   <ion-content>
     <h1>Search</h1>
+
+    <ion-google-place placeholder="Enter an address, Apt# and ZIP" ng-model="start" class="col" ng-change="doMapStart(start)" geocode-options="geocodeOptions"/>
   </ion-content>
 </ion-view>
