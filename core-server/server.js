@@ -118,13 +118,16 @@ server.get('/booking/get', function(req, res, next) {
     .run(conn, function(err, booking) {
       if(err) return res.json(500, err.toString());
 
-      // inject driver's info into the booking before returning back to the client
-      client1.get(apiNS()+'/driver/get?driverID='+booking.driverID,
-      function(err, req, result, obj) {
-        if(err) return res.json(500, err.toString());
-        booking.driver = obj;
-        return handleSimpleTrans(err, booking, conn, res);
-      });
+      if(booking.driverID) {
+        // inject driver's info into the booking before returning back to the client
+        client1.get(apiNS()+'/driver/get?driverID='+booking.driverID,
+        function(err, req, result, obj) {
+          if(err) return res.json(500, err.toString());
+          booking.driver = obj;
+          return handleSimpleTrans(err, booking, conn, res);
+        });
+      }
+      return handleSimpleTrans(err, booking, conn, res);
 
     });
   });
