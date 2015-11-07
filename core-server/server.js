@@ -95,7 +95,7 @@ server.post('/insertTestBooking', function(req, res, next) {
     isAllNight: false
   }
   console.log('creating a test booking request: ' + data.toString());
-  client1.post('/booking/create', data, function(err, req, result, obj) {
+  client1.post(apiNS() + '/booking/create', data, function(err, req, result, obj) {
     if(err) return res.json(500, err);
     console.log('test booking request creation result: ' + obj.toString());
     return res.send(obj);
@@ -106,6 +106,12 @@ server.post('/insertTestBooking', function(req, res, next) {
 
 function now() {
   return (new Date()).getTime();
+}
+
+function apiNS() {
+  if(process.env.env === "development")
+    return '';
+  return '/api';
 }
 
 function dbconn(cb) {
