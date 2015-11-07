@@ -1,7 +1,7 @@
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
-
+  window.localStorage.setItem('userID', 'thanhtung2806@gmail.com');
 })
 
 .controller('SearchCtrl', function($scope, uiGmapGoogleMapApi, $timeout) {
@@ -119,6 +119,11 @@ angular.module('starter.controllers', [])
     }
     $scope.vehicles = [];
     //calc route
+    calcRoute();
+
+  };
+
+  var calcRoute = function(){
     maps = uiGmapGoogleMap;
     directionsService = new maps.DirectionsService();
     var start = $scope.markerStart.latlng;
@@ -135,7 +140,7 @@ angular.module('starter.controllers', [])
         directionsDisplay.setDirections(response);
       }
     })
-  };
+  }
 
   //only in Singapore
   $scope.geocodeOptions = {
