@@ -230,7 +230,7 @@ angular.module('starter.controllers', [])
   });
 })
 
-.controller('GimmieTestCtrl', function($scope, $http) {
+.controller('GimmieTestCtrl', function($scope, $http, $ionicPopup) {
   console.log('Gimmie Gimmie');
 
   var user = JSON.parse(localStorage.getItem('dre_user'));
@@ -272,13 +272,43 @@ angular.module('starter.controllers', [])
 
   });
 
+  $scope.showGimmie = function(data) {
+
+    var title, template;
+    if(data.success) {
+      title = "Congratulations";
+      template = "<div style='text-align: center;'>" + data.payload.actions[0].message + "<br />Total pts: " + data.payload.user.awarded_points + "</div>";
+    } else {
+      title = "Hang on...";
+      template = "You earned some points just now, but the system failed to acknowledge that. We're sorry!";
+    }
+
+    var alertPopup = $ionicPopup.alert({
+      title: title,
+      template: template
+    });
+    alertPopup.then(function(res) {
+      //console.log('Thank you for not eating my delicious ice cream cone');
+    });
+
+ };
+
   $scope.afterValetRated = function() {
+    var eventName = "rate_valet";
     $http({
-      url: "http://drever.codeatnite.com/api/gimmie/trigger?eventName=rate_valet&userID="+userID
+      url: "http://drever.codeatnite.com/api/gimmie/trigger?eventName="+eventName+"&userID="+userID
     }).then(function(result) {
       console.log(result.data.response);
+      $scope.showGimmie({
+        success: true,
+        payload: result.data.response
+      });
     }, function(err) {
       console.log(err);
+      $scope.showGimmie({
+        success: false,
+        payload: err
+      });
     });
   }
 
