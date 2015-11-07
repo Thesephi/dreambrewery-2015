@@ -16,6 +16,49 @@
   src: url("../fonts/AvenirLTStd-Heavy.eot?#iefix") format("embedded-opentype"), url("../fonts/AvenirLTStd-Heavy.woff") format("woff"), url("../fonts/AvenirLTStd-Heavy.ttf") format("truetype");
   font-weight: 700;
   font-style: normal; }
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, input, button, select, textarea {
+  font-family: 'AvenirLTStd' !important; }
+
+body {
+  font-family: 'AvenirLTStd' !important; }
+
+.button-blue {
+  background: #0075d6;
+  border-color: #0075d6;
+  color: #fff; }
+  .button-blue:hover {
+    color: #fff; }
+
+.button-orange {
+  background: #f37456;
+  border-color: #f37456;
+  color: #fff; }
+  .button-orange:hover {
+    color: #fff; }
+
+.bar.bar-footer {
+  padding: 0;
+  height: 45px;
+  border-top: 0; }
+  .bar.bar-footer .button {
+    min-width: 50%;
+    line-height: 45px;
+    float: left;
+    font-weight: 700;
+    height: 45px;
+    border: none;
+    padding: 0 2px;
+    font-size: 17px; }
+    .bar.bar-footer .button:last-child {
+      position: relative;
+      top: 0;
+      left: 0; }
+    .bar.bar-footer .button.button-full {
+      min-width: 100%;
+      min-height: 40px;
+      padding: 0;
+      margin: 0; }
+
 .ion-google-place-container {
   position: fixed;
   top: 0;
@@ -39,15 +82,6 @@ input.ion-google-place[readonly] {
   z-index: 5;
   padding: 0 20px;
   width: 100%; }
-  .addr-holder.more-info-holder {
-    top: 0; }
-    .addr-holder.more-info-holder .more-info-item {
-      padding: 20px; }
-      .addr-holder.more-info-holder .more-info-item h4 {
-        color: #fff;
-        margin: 0; }
-      .addr-holder.more-info-holder .more-info-item p {
-        margin: 0; }
   .addr-holder .col {
     padding: 0; }
   .addr-holder .addr-info {
@@ -55,7 +89,7 @@ input.ion-google-place[readonly] {
     .addr-holder .addr-info h4 {
       color: #878787;
       margin-bottom: 0;
-      margin-top: 5px;
+      margin-top: 7px;
       line-height: 17px;
       font-weight: 400; }
       .addr-holder .addr-info h4 small {
@@ -95,9 +129,10 @@ input.ion-google-place[readonly] {
       flex: 0 0 50px;
       max-width: 50px;
       overflow: hidden;
-      border-radius: 5px 0 0 5px; }
-      .addr-holder .addr-item .ico-holder .ico {
-        margin-top: 10px; }
+      border-radius: 5px 0 0 5px;
+      height: 50px; }
+      .addr-holder .addr-item .ico-holder img {
+        margin-top: 15px; }
     .addr-holder .addr-item.addr-start .ico-holder {
       background: #1b8be8;
       padding: 0;
@@ -140,5 +175,31 @@ input.ion-google-place[readonly] {
     color: #fff; }
   .bar.bar-stable .button.button-clear {
     color: #fff; }
+
+.payment {
+  position: absolute;
+  left: 0;
+  bottom: 45px;
+  height: 45px;
+  line-height: 45px;
+  width: 100%;
+  background: #d7d7d7;
+  color: #494949;
+  font-weight: 600; }
+  .payment .row {
+    padding: 0; }
+  .payment .col {
+    padding: 0; }
+  .payment .item {
+    border: none;
+    background: none;
+    color: #494949;
+    line-height: 50px;
+    padding: 0 0 0 55px; }
+  .payment .item-checkbox .checkbox {
+    margin-top: -22px; }
+  .payment .checkbox input:checked:before, .payment .checkbox input:checked + .checkbox-icon:before {
+    background: #3d6792;
+    border-color: #3d6792; }
 
 /*# sourceMappingURL=style.css.map */

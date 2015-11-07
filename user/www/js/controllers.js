@@ -36,7 +36,7 @@ angular.module('starter.controllers', [])
       },{
         id: 'valet2', last_known_location: { latitude: 1.302477, longitude: 103.850558}
       },{
-        id: 'valet3', last_known_location: { latitude: 1.301690, longitude: 103.851269}
+        id: 'valet3', last_known_location: { latitude: 1.301805, longitude: 103.851445}
       }
     ];
     console.log($scope.vehicles)
