@@ -169,6 +169,9 @@ input.ion-google-place[readonly] {
     color: #686868;
     font-size: 17px; }
 
+.has-footer {
+  bottom: 40px; }
+
 .bar.bar-stable {
   background: #000; }
   .bar.bar-stable .title {
@@ -184,8 +187,7 @@ input.ion-google-place[readonly] {
   line-height: 45px;
   width: 100%;
   background: #d7d7d7;
-  color: #494949;
-  font-weight: 600; }
+  color: #494949; }
   .payment .row {
     padding: 0; }
   .payment .col {

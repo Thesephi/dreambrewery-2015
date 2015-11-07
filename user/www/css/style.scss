@@ -94,12 +94,13 @@ input.ion-google-place[readonly]{
     content:attr(data-ph); line-height: 40px; color: #686868; font-size: 17px;
   }
 }
+.has-footer { bottom: 40px; }
 .bar.bar-stable { background: #000;
   .title { color: #fff; }
   .button.button-clear { color: #fff; }
 }
 
-.payment { position: absolute; left: 0 ; bottom: 45px; height: 45px; line-height: 45px; width: 100%; background: #d7d7d7; color: #494949; font-weight: 600;
+.payment { position: absolute; left: 0 ; bottom: 45px; height: 45px; line-height: 45px; width: 100%; background: #d7d7d7; color: #494949;
   .row { padding: 0 }
   .col { padding: 0 }
   .item { border: none; background: none; color: #494949;  line-height: 50px; padding: 0 0 0 55px;
