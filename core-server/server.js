@@ -126,11 +126,16 @@ server.get('/booking/get', function(req, res, next) {
           booking.driver = obj;
           return handleSimpleTrans(err, booking, conn, res);
         });
+      } else {
+        return handleSimpleTrans(err, booking, conn, res);
       }
-      return handleSimpleTrans(err, booking, conn, res);
 
     });
   });
+});
+
+server.get('/booking/get/:id', function(req, res, next) {
+  return res.redirect('/booking/get?bookingID='+req.params.id, next);
 });
 
 server.get('/booking/:id/delete', function(req, res, next) {
