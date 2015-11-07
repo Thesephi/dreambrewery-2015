@@ -1,0 +1,21 @@
+<ion-view view-title="Rating">
+  <div class="content has-header has-footer bg-blur">
+    <div class="rating-box">
+      <div class="rating-inner">
+        <div class="valet-info text-center">
+          <img src="img/michael.png" alt="" width="100" class="avatar">
+          <h2>Gabriel Philipecki</h2>
+          <p>{{dateStart | date: 'MMM d, y h:mm a'}}</p>
+          <div class="fare">SGD {{totalFare | number: 1}}</div>
+        </div>
+        <div class="rating-info text-center">
+          <h3>How was your ride?</h3>
+          <ionic-ratings ratingsobj='ratingsObject'></ionic-ratings>
+          <a href="#" class="button button-blue button-full">SUBMIT</a>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ion-view>

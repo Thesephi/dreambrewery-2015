@@ -33,29 +33,29 @@
 
   </div>
   <div class="payment">
-      <div class="row">
-        <div class="col col-25 text-center">
-          Payment
+    <div class="row">
+      <div class="col col-25 text-center">
+        Payment
+      </div>
+      <div class="col">
+        <div class="item item-checkbox">
+           <label class="checkbox">
+             <input type="radio" name="pay" value="card" ng-model="payment" ng-click="getValuePayment(payment)">
+           </label>
+           Credit card
         </div>
-        <div class="col">
-          <div class="item item-checkbox">
-             <label class="checkbox">
-               <input type="radio" name="pay" value="card">
-             </label>
-             Credit card
-          </div>
-        </div>
-        <div class="col col-33">
-          <div class="item item-checkbox">
-             <label class="checkbox">
-               <input type="radio" name="pay" value="cash" checked>
-             </label>
-             Cash
-          </div>
+      </div>
+      <div class="col col-33">
+        <div class="item item-checkbox">
+           <label class="checkbox">
+             <input type="radio" name="pay" value="cash" checked ng-model="payment" ng-click="getValuePayment(payment)">
+           </label>
+           Cash
         </div>
       </div>
     </div>
-    <div class="bar bar-footer">
-      <a class="button button-orange button-full" ui-sref="app.waiting">request for valet</a>
-    </div>
+  </div>
+  <div class="bar bar-footer">
+    <a class="button button-orange button-full" ui-sref="app.waiting">request for valet</a>
+  </div>
 </ion-view>
