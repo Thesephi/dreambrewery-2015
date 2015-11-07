@@ -4,6 +4,7 @@ var restify = require('restify');
 var r = require('rethinkdb');
 var Faker = require('Faker');
 var util = require('util');
+var OAuth= require('oauth').OAuth;
 
 var config = {
   appport: 18865,
@@ -280,6 +281,41 @@ server.get('/booking/accept', function(req, res, next) {
 
 server.get('/booking/:id/accept', function(req, res, next) {
   return res.redirect(apiNS() + '/booking/accept?bookingID='+req.params.id+'&driverID='+req.params.driverID, next);
+});
+
+/** GAMIFICATION */
+
+server.get('/gimmie', function(req, res, next) {
+
+  var p = req.params;
+
+  // setup
+  var my_player_uid = p.userID;
+  var consumer_key = "109dd42f1c3caf0d527df115d5f2";
+  var consumer_secret = "18ee5e77b954f618c9342df9d08d";
+
+  // notice there is no token request steps. you already have access!
+  var access_token = my_player_uid;
+  var access_token_secret = consumer_secret;
+
+  // oauth
+  var api = new OAuth(null, null,
+                     consumer_key, consumer_secret,
+                     "1.0", null,
+                     "HMAC-SHA1");
+
+  // usage
+  api.get("https://api.gimmie.io/1/profile.json",
+  access_token,
+  access_token_secret,
+  function(error, text) {
+    console.log(text); // raw response text
+    var json = JSON.parse(text); // convert into object
+    console.log(json['response']['success']); // should be true
+    if(error) return res.json(500, error.toString());
+    return res.json(json);
+  });
+
 });
 
 /** SEED DATA */
