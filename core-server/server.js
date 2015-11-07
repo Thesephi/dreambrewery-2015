@@ -155,12 +155,36 @@ server.post('/booking/create', function(req, res, next) {
       createdTS: now(),
       start_longitude: p.start_longitude,
       start_latitude: p.start_latitude,
+      startPoint: r.point(parseFloat(p.start_longitude), parseFloat(p.start_latitude)),
       end_longitude: p.end_longitude,
       end_latitude: p.end_latitude,
+      endPoint: r.point(parseFloat(p.end_longitude), parseFloat(p.end_latitude)),
       pickupTS: p.pickupTS,
       isAllNight: p.isAllNight // true means the valet is for all niiight long
     })
     .run(conn, function(err, result) {
+      return handleSimpleTrans(err, result, conn, res);
+    });
+  });
+});
+
+// i.e., http://localhost:18865/booking/search?lng=103.8099239&lat=1.3068147
+server.get('/booking/search', function(req, res, next) {
+  var p = req.params;
+  dbconn(function(err, conn) {
+    if(err) return res.json(500, err);
+    r.table(BOOKING)
+    .getNearest(r.point(parseFloat(p.lng), parseFloat(p.lat)), {index: 'startPoint'})
+    .run(conn, function(err, result) {
+      var ret;
+      result = result.map(function(mess) {
+        ret = mess.doc;
+        ret.dist = mess.dist;
+        return ret;
+      });
+      result = result.filter(function(booking) {
+        return booking.state === 0;
+      });
       return handleSimpleTrans(err, result, conn, res);
     });
   });
@@ -177,6 +201,8 @@ server.post('/booking/update', function(req, res, next) {
     if(!p.all) {
       q = q.get(p.bookingID);
       delete p.bookingID;
+    } else {
+      delete p.all; // so that we don't pollute the booking schema
     }
     q = q.update(p)
     .run(conn, function(err, result) {
@@ -247,6 +273,25 @@ server.get('/insertTestUser', function(req, res, next) {
 
 server.get('/insertTestDriver', function(req, res, next) {
   insertTestDriver(res);
+});
+
+server.get('/updateBookingIntegrity', function(req, res, next) {
+  dbconn(function(err, conn) {
+    if(err) return res.json(500, err);
+    r.table(BOOKING)
+    .forEach(function(booking) {
+      var bookingID = booking('id');
+      var startPoint = r.point((booking('start_longitude')), (booking('start_latitude')));
+      var endPoint = r.point((booking('end_longitude')), (booking('end_latitude')));
+      return r.table(BOOKING).get(bookingID).update({
+        startPoint: startPoint,
+        endPoint: endPoint
+      });
+    })
+    .run(conn, function(err, result) {
+      return handleSimpleTrans(err, result, conn, res);
+    });
+  });
 });
 
 
