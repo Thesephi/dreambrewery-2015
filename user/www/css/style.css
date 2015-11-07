@@ -48,7 +48,8 @@ body {
     height: 45px;
     border: none;
     padding: 0 2px;
-    font-size: 17px; }
+    font-size: 17px;
+    text-transform: uppercase; }
     .bar.bar-footer .button:last-child {
       position: relative;
       top: 0;
