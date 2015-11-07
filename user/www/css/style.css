@@ -252,8 +252,13 @@ input.ion-google-place[readonly] {
     background: #e4eff9;
     border-radius: 0 0 10px 10px;
     font-size: 16px;
-    color: #686868; }
+    color: #686868;
+    padding: 20px 5px; }
     .summary-box .info strong {
       color: #55a0ef; }
+    .summary-box .info .col {
+      padding: 0; }
+    .summary-box .info .col:first-child {
+      border-right: solid 1px #cbcbcb; }
 
 /*# sourceMappingURL=style.css.map */
