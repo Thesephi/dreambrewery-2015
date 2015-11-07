@@ -5,13 +5,29 @@ angular.module('starter.controllers', [])
 })
 
 .controller('SearchCtrl', function($scope, uiGmapGoogleMapApi) {
+  var uiGmapGoogleMap ='';
+  var directionsDisplay ='';
+
+  // $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+  init();
+  function init(){
+    $scope.startEnd = {};
+    $scope.map = {
+      center: { latitude: 1.3068147, longitude: 103.8099239 },
+      options: { minZoom: 3, maxZoom: 16 },
+      zoom: 18,
+      control : {}
+    };
+
+  };
   //init
-  $scope.startEnd = {};
-  console.log($scope.startEnd)
+
 
 
   uiGmapGoogleMapApi.then(function(maps) {
-    console.log('anh');
+    console.log('a');
+
+
   });
 
 
