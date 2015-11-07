@@ -190,5 +190,27 @@ angular.module('starter.controllers', [])
 
 })
 
+.controller('GimmieTestCtrl', function($scope) {
+  console.log('Gimmie Gimmie');
+  $scope.$on("$ionicView.loaded", function() {
+    var d = window.document;
+    _gimmie = {
+        "endpoint": "http://drever.codeatnite.com/gimmie",
+        "key": "109dd42f1c3caf0d527df115d5f2"
+    };
+
+    var js, id = "gimmie-widget",
+        ref = d.getElementsByTagName("script")[0];
+    if (d.getElementById(id)) {
+        return;
+    }
+    js = d.createElement("script");
+    js.id = id;
+    js.async = true;
+    js.src = "//api.gimmieworld.com/cdn/gimmie-widget2.all.js";
+    ref.parentNode.insertBefore(js, ref);
+
+  });
+})
 
 ;
