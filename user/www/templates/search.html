@@ -15,27 +15,33 @@
     <div class="addr-holder">
       <div class="addr-start addr-item row">
         <div class="ico-holder col text-center">
-          <i class="ico icoStart"></i>
+          <img src="img/pickup-icon.png" alt="" width="22">
         </div>
-        <div class="col-80 addr-info" >
+        <div class="col-75 addr-info" >
           <div class="">
-            <h4 contentEditable=true data-ph="Choose your pick-up location">{{ (startEnd.start.address_components|filter:query)[0].long_name }}</h4>
+            <h4 contentEditable=true data-ph="Choose your pick-up location"><small ng-if="startEnd.start.formatted_address">PICK-UP</small></h4>
             <p>
             {{ startEnd.start.formatted_address}}</p>
           </div>
+        </div>
+        <div class="ico-holder-right text-center">
+          <img src="img/arrow-blue.png" alt="" width="15">
         </div>
       </div>
 
       <div class="addr-end addr-item row">
         <div class="ico-holder col text-center">
-          <i class="ico icoEnd"></i>
+          <img src="img/drop-off-icon.png" alt="" width="20">
         </div>
-        <div class="col-80 addr-info" >
+        <div class="col-75 addr-info" >
           <div class="">
-            <h4 contentEditable=true data-ph="Choose your drop-off location">{{ (startEnd.end.address_components|filter:query)[0].long_name }}</h4>
+            <h4 contentEditable=true data-ph="Choose your drop-off location"><small ng-if="startEnd.end.formatted_address">DROP-OFF</small></h4>
             <p>
             {{ startEnd.end.formatted_address}}</p>
           </div>
+        </div>
+        <div class="ico-holder-right text-center">
+          <img src="img/arrow-orange.png" alt="" width="15">
         </div>
       </div>
 

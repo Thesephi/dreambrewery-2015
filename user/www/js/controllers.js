@@ -17,6 +17,7 @@ angular.module('starter.controllers', [])
     initMap();
   };
 
+  // init center map
   function initMap(){
     $scope.map = {
       center: { latitude: 1.301905, longitude: 103.851645 },
@@ -26,6 +27,7 @@ angular.module('starter.controllers', [])
     };
   }
 
+  // init valet around
   function initValet(){
     $scope.vehicles = [
       {
@@ -40,6 +42,7 @@ angular.module('starter.controllers', [])
     console.log($scope.vehicles)
   }
 
+  // get location start point
   function getGeoLocation(){
     var lat = 1.301905;
     var lng = 103.851645;
@@ -61,6 +64,7 @@ angular.module('starter.controllers', [])
           console.log($scope.markerStart);
           lat = $scope.markerStart.coords.latitude;
           lng = $scope.markerStart.coords.longitude;
+          findNameLocation(lat,lng);
           $scope.map.center = { latitude: lat, longitude: lng }
           console.log(lat, lng);
           //find name location
@@ -68,17 +72,27 @@ angular.module('starter.controllers', [])
       }
     }
     console.log($scope.markerStart)
-
   }
-  //init
 
+  //find name base on lat, lng
+  var findNameLocation = function(lat,lng) {
+    var geocoder = new google.maps.Geocoder();
+    var latlng = new google.maps.LatLng(lat, lng);
+    geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        $scope.startEnd.start = results[0];
+      } else {
+        console.log(status);
+      }
+    });
+  }
 
-
+  // check map loading
   uiGmapGoogleMapApi.then(function(maps) {
     console.log('a');
   });
 
-
+  // search start point
   $scope.doMapStart = function(item) {
     console.log($scope.startEnd);
     lat = item.geometry.location.lat();
@@ -90,7 +104,7 @@ angular.module('starter.controllers', [])
     $scope.markerStart.coord =  { lat: lat, lng: lng }
 
   };
-
+  // search end point
   $scope.doMapEnd = function(item) {
     lat = item.geometry.location.lat();
     lng = item.geometry.location.lng();
@@ -103,8 +117,6 @@ angular.module('starter.controllers', [])
     $scope.markerStart.options = {
       draggable: false
     }
-
-
   };
 
   //only in Singapore

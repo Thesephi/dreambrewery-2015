@@ -53,37 +53,37 @@ input.ion-google-place[readonly] {
   .addr-holder .addr-info {
     padding: 0 5px 0 10px; }
     .addr-holder .addr-info h4 {
-      color: #fff;
+      color: #878787;
       margin-bottom: 0;
-      margin-top: 10px;
-      line-height: 17px; }
+      margin-top: 5px;
+      line-height: 17px;
+      font-weight: 400; }
+      .addr-holder .addr-info h4 small {
+        font-size: 12px; }
     .addr-holder .addr-info p {
       margin-bottom: 0;
-      color: #b0b0b0;
+      color: #686868;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      font-size: 13px; }
-    .addr-holder .addr-info textarea {
-      background: none;
-      color: #fff;
-      width: 100%;
-      margin-top: 15px;
-      min-height: 35px; }
+      font-size: 17px; }
     .addr-holder .addr-info ::-webkit-input-placeholder {
-      color: #fff; }
+      color: #686868; }
     .addr-holder .addr-info :-moz-placeholder {
-      color: #fff; }
+      color: #686868; }
     .addr-holder .addr-info ::-moz-placeholder {
-      color: #fff; }
+      color: #686868; }
     .addr-holder .addr-info :-ms-input-placeholder {
-      color: #fff; }
+      color: #686868; }
   .addr-holder .addr-item {
-    background: rgba(0, 0, 0, 0.85);
+    background: #fff;
     padding: 0;
-    color: #fff;
-    margin-bottom: 20px;
-    display: flex; }
+    color: #686868;
+    margin-bottom: 15px;
+    display: flex;
+    border-radius: 5px;
+    border: solid 1px #e5e5e5;
+    box-shadow: 0px 0px 10px #E2E1E1; }
     .addr-holder .addr-item .ico-holder {
       line-height: 50px;
       font-size: 23px;
@@ -94,17 +94,25 @@ input.ion-google-place[readonly] {
       -ms-flex: 0 0 50px;
       flex: 0 0 50px;
       max-width: 50px;
-      overflow: hidden; }
+      overflow: hidden;
+      border-radius: 5px 0 0 5px; }
       .addr-holder .addr-item .ico-holder .ico {
         margin-top: 10px; }
     .addr-holder .addr-item.addr-start .ico-holder {
-      background: #bb6018;
+      background: #1b8be8;
       padding: 0;
       color: #fff; }
     .addr-holder .addr-item.addr-end .ico-holder {
-      background: #123d8b;
+      background: #ff7d4a;
       padding: 0;
       color: #fff; }
+  .addr-holder .ico-holder-right {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    color: #909396;
+    margin: 10px 10px 0 0;
+    width: 30px; }
   .addr-holder .holder-addr {
     position: absolute;
     top: 0;
@@ -122,7 +130,15 @@ input.ion-google-place[readonly] {
       opacity: 0; }
   .addr-holder [contentEditable=true]:empty:not(:focus):before {
     content: attr(data-ph);
-    line-height: 30px;
-    padding-left: 10px; }
+    line-height: 40px;
+    color: #686868;
+    font-size: 17px; }
+
+.bar.bar-stable {
+  background: #000; }
+  .bar.bar-stable .title {
+    color: #fff; }
+  .bar.bar-stable .button.button-clear {
+    color: #fff; }
 
 /*# sourceMappingURL=style.css.map */
