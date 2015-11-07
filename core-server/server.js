@@ -285,29 +285,20 @@ server.get('/booking/:id/accept', function(req, res, next) {
 
 /** GAMIFICATION */
 
+// oauth setup
+var consumer_key = "109dd42f1c3caf0d527df115d5f2";
+var consumer_secret = "18ee5e77b954f618c9342df9d08d";
+var api = new OAuth(null, null,
+  consumer_key, consumer_secret,
+  "1.0", null,
+  "HMAC-SHA1");
+
 server.get('/gimmie', function(req, res, next) {
-
   var p = req.params;
-
-  // setup
-  var my_player_uid = p.userID;
-  var consumer_key = "109dd42f1c3caf0d527df115d5f2";
-  var consumer_secret = "18ee5e77b954f618c9342df9d08d";
-
-  // notice there is no token request steps. you already have access!
-  var access_token = my_player_uid;
-  var access_token_secret = consumer_secret;
-
-  // oauth
-  var api = new OAuth(null, null,
-                     consumer_key, consumer_secret,
-                     "1.0", null,
-                     "HMAC-SHA1");
-
-  // usage
+  var userID = p.userID;
   api.get("https://api.gimmie.io/1/profile.json",
-  access_token,
-  access_token_secret,
+  userID,
+  consumer_secret,
   function(error, text) {
     console.log(text); // raw response text
     var json = JSON.parse(text); // convert into object
@@ -315,7 +306,20 @@ server.get('/gimmie', function(req, res, next) {
     if(error) return res.json(500, error.toString());
     return res.json(json);
   });
+});
 
+server.get('/gimmie/trigger', function(req, res, next) {
+  var p = req.params;
+  var userID = p.userID;
+  var eventName = p.eventName;
+  api.get("https://api.gimmie.io/1/trigger.json?event_name="+eventName+"&source_uid="+userID,
+  userID,
+  consumer_secret,
+  function(error, text) {
+    var json = JSON.parse(text);
+    if(error) return res.json(500, error.toString());
+    return res.json(json);
+  });
 });
 
 /** SEED DATA */

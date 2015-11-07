@@ -226,14 +226,14 @@ angular.module('starter.controllers', [])
       name: "Lennie Lueilwitz III",
       avatar: "http://drever.codeatnite.com/uploads/user0.jpg"
     }
-    localStorage.setItem('user', user);
+    localStorage.setItem('user', JSON.stringify(user));
   });
 })
 
-.controller('GimmieTestCtrl', function($scope) {
+.controller('GimmieTestCtrl', function($scope, $http) {
   console.log('Gimmie Gimmie');
 
-  var user = localStorage.getItem('user');
+  var user = JSON.parse(localStorage.getItem('user'));
   var userID = user.id || "b26c346d-36fd-4649-aaca-00fd8b3867e7";
 
   $scope.$on("$ionicView.loaded", function() {
@@ -241,7 +241,7 @@ angular.module('starter.controllers', [])
     _gimmie = {
         "endpoint": "http://drever.codeatnite.com/api/gimmie?userID="+userID,
         "key": "109dd42f1c3caf0d527df115d5f2",
-        "user": {
+        "dre_user": {
           "name": user.name,
           "realname": user.name,
           "email": user.email,
@@ -252,8 +252,8 @@ angular.module('starter.controllers', [])
           "widgetLoad": function() {
 
           },
-          // This function will get call when user click on the 'rate valet' button.
-          "rateValet": function() {
+          // This function will get call when user finished rating a valet
+          "rate_valet": function() {
             console.log('Congratulations. You got a reward for being generous in giving the Valet a rating!');
           }
         },
@@ -271,6 +271,17 @@ angular.module('starter.controllers', [])
     ref.parentNode.insertBefore(js, ref);
 
   });
+
+  $scope.afterValetRated = function() {
+    $http({
+      url: "//api.gimmie.io/1/trigger.json?event_name=rate_valet&source_uid="+userID
+    }).then(function(data) {
+      console.log('afterValetRated ' + data);
+    }, function(err) {
+      console.log('afterValetRated ' + err);
+    });
+  }
+
 })
 
 ;
