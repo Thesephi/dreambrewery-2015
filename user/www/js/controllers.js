@@ -182,6 +182,7 @@ angular.module('starter.controllers', [])
 .controller('WaitingCtrl', function($scope) {
   console.log('WaitingCtrl');
   $scope.totalFare = localStorage.getItem("totalFare");
+  $scope.payment = localStorage.getItem("payment");
 
 })
 

@@ -261,4 +261,51 @@ input.ion-google-place[readonly] {
     .summary-box .info .col:first-child {
       border-right: solid 1px #cbcbcb; }
 
+.waiting-box {
+  padding: 20px; }
+  .waiting-box .waiting-inner {
+    background: #fff;
+    border-radius: 10px;
+    border: solid 2px #cecece; }
+  .waiting-box .valet-info {
+    color: #737373;
+    padding: 20px 0; }
+    .waiting-box .valet-info h4 {
+      color: #fb6542;
+      margin-top: 0;
+      margin-bottom: 15px; }
+    .waiting-box .valet-info img.avatar {
+      border-radius: 50%;
+      border: solid 4px #cbcbcb;
+      margin-bottom: 15px; }
+    .waiting-box .valet-info h2 {
+      color: #737373;
+      font-weight: 700;
+      font-size: 22px;
+      margin: 0 0 5px 0; }
+    .waiting-box .valet-info p {
+      font-size: 16px;
+      margin: 0;
+      position: relative; }
+      .waiting-box .valet-info p img {
+        position: absolute;
+        top: -3px;
+        margin-left: -26px; }
+  .waiting-box .trip-info {
+    background: #e2e2e2;
+    padding: 15px 0; }
+    .waiting-box .trip-info p {
+      color: #737373;
+      font-size: 16px;
+      margin: 0 0 3px 0; }
+    .waiting-box .trip-info h4 {
+      color: #737373;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0; }
+      .waiting-box .trip-info h4.fare {
+        color: #fb6542; }
+    .waiting-box .trip-info .col:first-child {
+      border-right: solid 1px #737373; }
+
 /*# sourceMappingURL=style.css.map */
