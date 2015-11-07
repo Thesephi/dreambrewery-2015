@@ -42,7 +42,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ion-google-place', '
     views: {
       'menuContent': {
         templateUrl: 'templates/search.html',
-        controller: 'AppCtrl'
+        controller: 'SearchCtrl'
       }
     }
   })

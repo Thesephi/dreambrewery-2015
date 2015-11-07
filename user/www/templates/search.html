@@ -2,6 +2,10 @@
   <ion-content>
     <h1>Search</h1>
 
-    <ion-google-place placeholder="Enter an address, Apt# and ZIP" ng-model="start" class="col" ng-change="doMapStart(start)" geocode-options="geocodeOptions"/>
+    <ion-google-place placeholder="Choose your pick-up location" ng-model="startEnd.start" class="col" ng-change="doMapStart(startEnd.start)" geocode-options="geocodeOptions"></ion-google-place>
+
+
+    <ion-google-place placeholder="Choose your dropp-off location" ng-model="startEnd.end" class="col" ng-change="doMapEnd(startEnd.end)" geocode-options="geocodeOptions"></ion-google-place>
+
   </ion-content>
 </ion-view>
