@@ -1,6 +1,35 @@
 <ion-view view-title="Booking summary">
-  <div class="content has-header has-footer">
-
+  <div class="content has-header has-footer bg-blur">
+    <div class="summary-box">
+      <div class="summary-inner">
+        <div class="start row center-all">
+          <div class="col-10">
+            <img src="img/pickup-icon-2.png" alt="" width="27">
+          </div>
+          <div class="col">
+            <p>PICK-UP</p>
+            <h4>{{userStart}}</h4>
+          </div>
+        </div>
+        <div class="end row center-all">
+          <div class="col-10">
+            <img src="img/drop-off-icon-2.png" alt="" width="25">
+          </div>
+          <div class="col">
+            <p>DROP-OFF</p>
+            <h4>{{userEnd}}</h4>
+          </div>
+        </div>
+        <div class="info row">
+          <div class="col text-center">
+            Fare <strong>SGD {{totalFare | number : 2}}</strong>
+          </div>
+          <div class="col text-center">
+            Est time <strong>{{totalTime | number : 0}} mins</strong>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
   <div class="payment">

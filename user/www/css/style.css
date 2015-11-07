@@ -22,6 +22,24 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, input, button, select, tex
 body {
   font-family: 'AvenirLTStd' !important; }
 
+.center-all {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 100%; }
+
+.text-center {
+  text-align: center; }
+
+.text-right {
+  text-align: right; }
+
 .button-blue {
   background: #0075d6;
   border-color: #0075d6;
@@ -35,6 +53,13 @@ body {
   color: #fff; }
   .button-orange:hover {
     color: #fff; }
+
+.bg-blur {
+  background: url(../img/bg-blur.jpg);
+  -webkit-background-size: cover;
+  background-size: cover;
+  height: 100vh;
+  width: 100%; }
 
 .bar.bar-footer {
   padding: 0;
@@ -204,5 +229,31 @@ input.ion-google-place[readonly] {
   .payment .checkbox input:checked:before, .payment .checkbox input:checked + .checkbox-icon:before {
     background: #3d6792;
     border-color: #3d6792; }
+
+.summary-box {
+  padding: 40px 20px; }
+  .summary-box .summary-inner {
+    background: #fff;
+    border-radius: 10px; }
+  .summary-box .start {
+    border-bottom: solid 1px #cbcbcb; }
+  .summary-box .row {
+    padding: 10px 5px 10px 15px; }
+  .summary-box h4 {
+    color: #686868;
+    margin: 0;
+    font-size: 16px; }
+  .summary-box p {
+    color: #a2a2a2;
+    margin-bottom: 3px;
+    margin-top: 0;
+    font-size: 13px; }
+  .summary-box .info {
+    background: #e4eff9;
+    border-radius: 0 0 10px 10px;
+    font-size: 16px;
+    color: #686868; }
+    .summary-box .info strong {
+      color: #55a0ef; }
 
 /*# sourceMappingURL=style.css.map */
