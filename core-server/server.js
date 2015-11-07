@@ -64,6 +64,17 @@ server.get('/insertTestUser', function(req, res, next) {
   insertTestUser(res);
 });
 
+server.get('/booking/list', function(req, res, next) {
+  dbconn(function(err, conn) {
+    if(err) return res.send(err);
+    r.table(BOOKING)
+    .coerceTo('array')
+    .run(conn, function(err, result) {
+      return handleSimpleTrans(err, result, conn, res);
+    });
+  });
+});
+
 server.post('/booking/create', function(req, res, next) {
   var p = req.params;
   dbconn(function(err, conn) {
