@@ -11,11 +11,11 @@
         <div class="trip-info row text-center">
           <div class="col">
             <p>Est Fare</p>
-            <h4 class="fare">SGD 48</h4>
+            <h4 class="fare">SGD {{totalFare | number: 1}}</h4>
           </div>
           <div class="col">
             <p>Pay by</p>
-            <h4>Cash</h4>
+            <h4>{{payment | uppercase }}</h4>
           </div>
         </div>
       </div>
@@ -24,6 +24,6 @@
   </div>
 
     <div class="bar bar-footer">
-      <a class="button button-blue button-full">cancel booking</a>
+      <a class="button button-blue button-full" ui-sref="app.rating">cancel booking</a>
     </div>
 </ion-view>

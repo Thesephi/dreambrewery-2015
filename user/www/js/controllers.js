@@ -12,6 +12,7 @@ angular.module('starter.controllers', [])
   function init(){
     $scope.startEnd = {};
     $scope.payment = 'cash';
+    window.localStorage['payment'] = $scope.payment;
     $scope.mapOptions = {scrollwheel: false, disableDefaultUI: true};
     getGeoLocation();
     initValet();
@@ -177,12 +178,40 @@ angular.module('starter.controllers', [])
   $scope.totalFare = localStorage.getItem("totalFare");
   $scope.payment = localStorage.getItem("payment");
 
+  $scope.getValuePayment = function(item) {
+    window.localStorage['payment'] = item;
+  };
+  // create booking here with date
+  window.localStorage['dateStart'] = Date.now();
+  // check booking
+
 })
 
 .controller('WaitingCtrl', function($scope) {
   console.log('WaitingCtrl');
   $scope.totalFare = localStorage.getItem("totalFare");
   $scope.payment = localStorage.getItem("payment");
+  //get info valet & save it for next state
+
+})
+
+.controller('RatingCtrl', function($scope) {
+  console.log('RatingCtrl');
+  $scope.totalFare = localStorage.getItem("totalFare");
+  $scope.dateStart = localStorage.getItem("dateStart");
+
+  var selectedRating;
+  $scope.ratingsObject = {
+    iconOn : 'ion-ios-star',
+    iconOff : 'ion-ios-star',
+    iconOnColor: 'rgb(51, 153, 255)',
+    iconOffColor:  'rgb(52, 63, 81)',
+    rating:  2,
+    minRating:1,
+    callback: function(rating) {
+      console.log(rating);
+    }
+  };
 
 })
 
