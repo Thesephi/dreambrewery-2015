@@ -2,6 +2,7 @@
 
 var restify = require('restify');
 var r = require('rethinkdb');
+var Faker = require('Faker');
 
 var config = {
   dbhost: 'localhost',
@@ -33,10 +34,11 @@ server.get('/test', function(req, res, next) {
 });
 
 /** APIS */
-server.get('/list', function(req, res, next) {
+
+server.get('/user/list', function(req, res, next) {
   dbconn(function(err, conn) {
     if(err) return res.send(err);
-    r.table(BOOKING)
+    r.table(USER)
     .coerceTo('array')
     .run(conn, function(err, result) {
       return handleCRUDTrans(err, result, conn, res);
@@ -46,10 +48,6 @@ server.get('/list', function(req, res, next) {
 
 server.get('/insertTestUser', function(req, res, next) {
   insertTestUser(res);
-});
-
-server.listen(18865, function() {
-  console.log('Drver Core Server listening at %s', server.url);
 });
 
 /** HELPERS */
@@ -70,14 +68,23 @@ function handleCRUDTrans(err, result, conn, res) {
 }
 
 function insertTestUser(res) {
+  var randomName = Faker.Name.findName();
+  var randomEmail = Faker.Internet.email();
   dbconn(function(err, conn) {
     if(err) return res.send(err);
-    r.table(BOOKING)
+    r.table(USER)
     .insert({
-      email: 'user1@drever.cangroup.io'
+      name: randomName,
+      email: randomEmail
     })
     .run(conn, function(err, result) {
       return handleCRUDTrans(err, result, conn, res);
     });
   });
 }
+
+/** KICK STARTS */
+
+server.listen(18865, function() {
+  console.log('Drver Core Server listening at %s', server.url);
+});
