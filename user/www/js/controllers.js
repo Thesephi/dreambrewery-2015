@@ -86,6 +86,7 @@ angular.module('starter.controllers', [])
     geocoder.geocode({ 'latLng': latlng }, function (results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
         $scope.startEnd.start = results[0];
+        window.localStorage['userStart'] = results[0].formatted_address;
       } else {
         console.log(status);
       }
@@ -102,6 +103,7 @@ angular.module('starter.controllers', [])
     $scope.markerStart.coords = { latitude: lat, longitude: lng }
     $scope.markerStart.latlng = lat+','+lng ;
     $scope.markerStart.coord =  { lat: lat, lng: lng }
+     window.localStorage['userStart'] = $scope.startEnd.start.formatted_address;
 
   };
   // search end point
@@ -114,6 +116,7 @@ angular.module('starter.controllers', [])
       latlng: lat+','+lng,
       coord: { lat: lat, lng: lng }
     }
+    window.localStorage['userEnd'] = $scope.startEnd.end.formatted_address;
     $scope.markerStart.options = {
       draggable: false
     }
