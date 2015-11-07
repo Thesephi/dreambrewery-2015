@@ -12,30 +12,62 @@ angular.module('starter.controllers', [])
   init();
   function init(){
     $scope.startEnd = {};
+    $scope.mapOptions = {scrollwheel: false, disableDefaultUI: true};
+    getGeoLocation();
+    initValet();
+    initMap();
+  };
+
+  function initMap(){
     $scope.map = {
-      center: { latitude: 1.3068147, longitude: 103.8099239 },
+      center: { latitude: 1.301905, longitude: 103.851645 },
       options: { minZoom: 3, maxZoom: 16 },
       zoom: 18,
       control : {}
     };
-    var lat = 1.3068147;
-    var lng = 103.8099239;
-    console.log(lat,lng)
+  }
+
+  function initValet(){
+    $scope.vehicles = [
+      {
+        id: 'valet1',
+        last_known_location: { latitude: 1.303614, longitude: 103.851344}
+      },{
+        id: 'valet2', last_known_location: { latitude: 1.302477, longitude: 103.850558}
+      },{
+        id: 'valet3', last_known_location: { latitude: 1.301690, longitude: 103.851269}
+      }
+    ];
+    console.log($scope.vehicles)
+  }
+
+  function getGeoLocation(){
+    var lat = 1.301905;
+    var lng = 103.851645;
 
     $scope.markerEnd = {
       id: 'end'
     };
+
     $scope.markerStart = {
       id: 'start',
       coords: {latitude: lat,longitude: lng},
       coord: {lat: lat, lng: lng},
-      latlng: lat + ',' + lng
+      latlng: lat + ',' + lng,
+      options: {
+        draggable: true
+      },
+      events: {
+        dragend: function (marker, eventName, args) {
+          console.log($scope.markerStart);
+          lat = $scope.markerStart.coords.latitude;
+          lng = $scope.markerStart.coords.longitude;
+          console.log(lat, lng);
+          //find name location
+        }
+      }
     }
     console.log($scope.markerStart)
-
-  };
-
-  function getGeoLocation(){
 
   }
   //init
