@@ -75,6 +75,18 @@ server.get('/booking/list', function(req, res, next) {
   });
 });
 
+server.get('/booking/get', function(req, res, next) {
+  var p = req.params;
+  dbconn(function(err, conn) {
+    if(err) return res.send(err);
+    r.table(BOOKING)
+    .get(p.bookingID)
+    .run(conn, function(err, result) {
+      return handleSimpleTrans(err, result, conn, res);
+    });
+  });
+});
+
 server.post('/booking/create', function(req, res, next) {
   var p = req.params;
   dbconn(function(err, conn) {
