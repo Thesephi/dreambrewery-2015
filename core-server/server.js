@@ -39,7 +39,6 @@ function corsHandler(req, res, next) {
   // kudos https://github.com/restify/node-restify/issues/296#issuecomment-12333568
   res.setHeader('Access-Control-Allow-Headers', 'Accept, Access-Control-Allow-Credentials, Access-Control-Allow-Headers, Access-Control-Allow-Methods, Access-Control-Allow-Origin, Content-Type');
   res.setHeader('Access-Control-Allow-Methods', '*');
-  res.setHeader('Access-Control-Allow-Origin', '*');
   return next();
 }
 function optionsRoute(req, res, next) {
