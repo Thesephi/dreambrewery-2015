@@ -197,14 +197,14 @@ angular.module('starter.controllers', [])
       name: "Lennie Lueilwitz III",
       avatar: "http://drever.codeatnite.com/uploads/user0.jpg"
     }
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('dre_user', JSON.stringify(user));
   });
 })
 
 .controller('GimmieTestCtrl', function($scope, $http) {
   console.log('Gimmie Gimmie');
 
-  var user = JSON.parse(localStorage.getItem('user'));
+  var user = JSON.parse(localStorage.getItem('dre_user'));
   var userID = user.id || "b26c346d-36fd-4649-aaca-00fd8b3867e7";
 
   $scope.$on("$ionicView.loaded", function() {
@@ -212,7 +212,7 @@ angular.module('starter.controllers', [])
     _gimmie = {
         "endpoint": "http://drever.codeatnite.com/api/gimmie?userID="+userID,
         "key": "109dd42f1c3caf0d527df115d5f2",
-        "dre_user": {
+        "user": {
           "name": user.name,
           "realname": user.name,
           "email": user.email,
@@ -245,11 +245,11 @@ angular.module('starter.controllers', [])
 
   $scope.afterValetRated = function() {
     $http({
-      url: "//api.gimmie.io/1/trigger.json?event_name=rate_valet&source_uid="+userID
-    }).then(function(data) {
-      console.log('afterValetRated ' + data);
+      url: "http://drever.codeatnite.com/api/gimmie/trigger?eventName=rate_valet&userID="+userID
+    }).then(function(result) {
+      console.log(result.data.response);
     }, function(err) {
-      console.log('afterValetRated ' + err);
+      console.log(err);
     });
   }
 
