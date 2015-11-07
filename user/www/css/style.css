@@ -1,3 +1,21 @@
+@font-face {
+  font-family: 'AvenirLTStd';
+  src: url("../fonts/AvenirLTStd-Medium.eot");
+  src: url("../fonts/AvenirLTStd-Medium.eot?#iefix") format("embedded-opentype"), url("../fonts/AvenirLTStd-Medium.woff") format("woff"), url("../fonts/AvenirLTStd-Medium.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal; }
+@font-face {
+  font-family: 'AvenirLTStd';
+  src: url("../fonts/AvenirLTStd-Light.eot");
+  src: url("../fonts/AvenirLTStd-Light.eot?#iefix") format("embedded-opentype"), url("../fonts/AvenirLTStd-Light.woff") format("woff"), url("../fonts/AvenirLTStd-Light.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal; }
+@font-face {
+  font-family: 'AvenirLTStd-Heavy';
+  src: url("../fonts/AvenirLTStd-Heavy.eot");
+  src: url("../fonts/AvenirLTStd-Heavy.eot?#iefix") format("embedded-opentype"), url("../fonts/AvenirLTStd-Heavy.woff") format("woff"), url("../fonts/AvenirLTStd-Heavy.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal; }
 .ion-google-place-container {
   position: fixed;
   top: 0;
@@ -13,5 +31,98 @@ input.ion-google-place[readonly] {
 
 .angular-google-map-container {
   height: 100vh; }
+
+.addr-holder {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  z-index: 5;
+  padding: 0 20px;
+  width: 100%; }
+  .addr-holder.more-info-holder {
+    top: 0; }
+    .addr-holder.more-info-holder .more-info-item {
+      padding: 20px; }
+      .addr-holder.more-info-holder .more-info-item h4 {
+        color: #fff;
+        margin: 0; }
+      .addr-holder.more-info-holder .more-info-item p {
+        margin: 0; }
+  .addr-holder .col {
+    padding: 0; }
+  .addr-holder .addr-info {
+    padding: 0 5px 0 10px; }
+    .addr-holder .addr-info h4 {
+      color: #fff;
+      margin-bottom: 0;
+      margin-top: 10px;
+      line-height: 17px; }
+    .addr-holder .addr-info p {
+      margin-bottom: 0;
+      color: #b0b0b0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 13px; }
+    .addr-holder .addr-info textarea {
+      background: none;
+      color: #fff;
+      width: 100%;
+      margin-top: 15px;
+      min-height: 35px; }
+    .addr-holder .addr-info ::-webkit-input-placeholder {
+      color: #fff; }
+    .addr-holder .addr-info :-moz-placeholder {
+      color: #fff; }
+    .addr-holder .addr-info ::-moz-placeholder {
+      color: #fff; }
+    .addr-holder .addr-info :-ms-input-placeholder {
+      color: #fff; }
+  .addr-holder .addr-item {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 0;
+    color: #fff;
+    margin-bottom: 20px;
+    display: flex; }
+    .addr-holder .addr-item .ico-holder {
+      line-height: 50px;
+      font-size: 23px;
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 50px;
+      -moz-box-flex: 0;
+      -moz-flex: 0 0 50px;
+      -ms-flex: 0 0 50px;
+      flex: 0 0 50px;
+      max-width: 50px;
+      overflow: hidden; }
+      .addr-holder .addr-item .ico-holder .ico {
+        margin-top: 10px; }
+    .addr-holder .addr-item.addr-start .ico-holder {
+      background: #bb6018;
+      padding: 0;
+      color: #fff; }
+    .addr-holder .addr-item.addr-end .ico-holder {
+      background: #123d8b;
+      padding: 0;
+      color: #fff; }
+  .addr-holder .holder-addr {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    padding: 0 20px; }
+    .addr-holder .holder-addr input {
+      height: 50px; }
+    .addr-holder .holder-addr .row {
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: 15px;
+      width: 100%;
+      height: 50px;
+      opacity: 0; }
+  .addr-holder [contentEditable=true]:empty:not(:focus):before {
+    content: attr(data-ph);
+    line-height: 30px;
+    padding-left: 10px; }
 
 /*# sourceMappingURL=style.css.map */

@@ -8,7 +8,6 @@ angular.module('starter.controllers', [])
   var uiGmapGoogleMap ='';
   var directionsDisplay ='';
 
-  // $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
   init();
   function init(){
     $scope.startEnd = {};
@@ -62,6 +61,7 @@ angular.module('starter.controllers', [])
           console.log($scope.markerStart);
           lat = $scope.markerStart.coords.latitude;
           lng = $scope.markerStart.coords.longitude;
+          $scope.map.center = { latitude: lat, longitude: lng }
           console.log(lat, lng);
           //find name location
         }
@@ -76,19 +76,33 @@ angular.module('starter.controllers', [])
 
   uiGmapGoogleMapApi.then(function(maps) {
     console.log('a');
-
-
   });
 
 
   $scope.doMapStart = function(item) {
     console.log($scope.startEnd);
-
+    lat = item.geometry.location.lat();
+    lng = item.geometry.location.lng();
+    $scope.map.center = { latitude: lat, longitude: lng }
+    $scope.map.zoom = 18;
+    $scope.markerStart.coords = { latitude: lat, longitude: lng }
+    $scope.markerStart.latlng = lat+','+lng ;
+    $scope.markerStart.coord =  { lat: lat, lng: lng }
 
   };
 
   $scope.doMapEnd = function(item) {
-    console.log($scope.startEnd);
+    lat = item.geometry.location.lat();
+    lng = item.geometry.location.lng();
+    $scope.markerEnd = {
+      id: 'end',
+      coords: { latitude: lat, longitude: lng },
+      latlng: lat+','+lng,
+      coord: { lat: lat, lng: lng }
+    }
+    $scope.markerStart.options = {
+      draggable: false
+    }
 
 
   };
@@ -100,8 +114,6 @@ angular.module('starter.controllers', [])
       country : 'SG'
     },
   };
-
-  console.log($scope.geocodeOptions)
 
 })
 
