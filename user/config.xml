@@ -4,11 +4,12 @@
   <description>
     Drink Responsibly. Have fun wildly.
   </description>
-  <author email="drever@cangroup.io" href="drever.codeatnite.com">
+  <author email="drever@cangroup.io" href="http://drever.codeatnite.com">
     Drever CAN Team
   </author>
   <content src="index.html"/>
   <access origin="*"/>
+  <!--<allow-navigation href="*" />-->
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
