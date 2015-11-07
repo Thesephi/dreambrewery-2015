@@ -18,8 +18,26 @@ angular.module('starter.controllers', [])
       zoom: 18,
       control : {}
     };
+    var lat = 1.3068147;
+    var lng = 103.8099239;
+    console.log(lat,lng)
+
+    $scope.markerEnd = {
+      id: 'end'
+    };
+    $scope.markerStart = {
+      id: 'start',
+      coords: {latitude: lat,longitude: lng},
+      coord: {lat: lat, lng: lng},
+      latlng: lat + ',' + lng
+    }
+    console.log($scope.markerStart)
 
   };
+
+  function getGeoLocation(){
+
+  }
   //init
 
 
