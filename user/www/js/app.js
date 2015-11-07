@@ -57,6 +57,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ion-google-place', '
     }
   })
 
+  .state('test-gimmie', {
+    url: '/test/gimmie',
+    templateUrl: 'templates/test/gimmie.html',
+    controller: 'GimmieTestCtrl'
+  })
+
   ;
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/intro');
