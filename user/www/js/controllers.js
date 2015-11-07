@@ -64,7 +64,7 @@ angular.module('starter.controllers', [])
           console.log($scope.markerStart);
           lat = $scope.markerStart.coords.latitude;
           lng = $scope.markerStart.coords.longitude;
-          findNameLocation(lat,lng)
+          findNameLocation(lat,lng);
           $scope.map.center = { latitude: lat, longitude: lng }
           console.log(lat, lng);
           //find name location
