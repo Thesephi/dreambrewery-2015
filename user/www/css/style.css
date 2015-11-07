@@ -353,4 +353,16 @@ input.ion-google-place[readonly] {
       margin-right: 10px;
       color: #2F2F3F; }
 
+.intro-state {
+  width: 100%;
+  height: 100vh;
+  padding-top: 40px; }
+  .intro-state a {
+    width: 100%;
+    height: 33.3333%;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center; }
+
 /*# sourceMappingURL=style.css.map */
