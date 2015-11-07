@@ -8,7 +8,7 @@
           </div>
           <div class="col">
             <p>PICK-UP</p>
-            <h4>128 Princep St, Singapore188566</h4>
+            <h4>{{userStart}}</h4>
           </div>
         </div>
         <div class="end row center-all">
@@ -17,15 +17,15 @@
           </div>
           <div class="col">
             <p>DROP-OFF</p>
-            <h4>128 Princep St, Singapore188566</h4>
+            <h4>{{userEnd}}</h4>
           </div>
         </div>
         <div class="info row">
           <div class="col text-center">
-            Fare <strong>SGD 48</strong>
+            Fare <strong>SGD {{totalFare | number : 2}}</strong>
           </div>
           <div class="col text-center">
-            Est time <strong>20 mins</strong>
+            Est time <strong>{{totalTime | number : 0}} mins</strong>
           </div>
         </div>
       </div>

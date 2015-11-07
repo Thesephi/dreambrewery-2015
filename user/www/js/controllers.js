@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
   window.localStorage.setItem('userID', 'thanhtung2806@gmail.com');
 })
 
-.controller('SearchCtrl', function($scope, uiGmapGoogleMapApi, $timeout) {
+.controller('SearchCtrl', function($scope, uiGmapGoogleMapApi, $timeout, $filter) {
   var uiGmapGoogleMap ='';
   var directionsDisplay ='';
 
@@ -123,7 +123,6 @@ angular.module('starter.controllers', [])
     $scope.vehicles = [];
     //calc route
     calcRoute();
-
   };
 
   var calcRoute = function(){
@@ -141,6 +140,15 @@ angular.module('starter.controllers', [])
       console.log(response);
       if (status == maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
+        var totalDistance = response.routes[0].legs[0].distance.value;
+        var totalTime = response.routes[0].legs[0].duration.value;
+        var totalFare = 3.5;
+        totalDistance = totalDistance / 1000;
+        totalTime = totalTime / 60;
+        totalFare = totalFare + (totalDistance*0.5);
+        window.localStorage['totalDistance'] = totalDistance;
+        window.localStorage['totalTime'] = totalTime;
+        window.localStorage['totalFare'] = totalFare;
       }
     })
   }
@@ -157,6 +165,11 @@ angular.module('starter.controllers', [])
 
 .controller('SummaryCtrl', function($scope) {
   console.log('SummaryCtrl');
+  $scope.userStart = localStorage.getItem("userStart");
+  $scope.userEnd = localStorage.getItem("userEnd");
+  $scope.totalDistance = localStorage.getItem("totalDistance");
+  $scope.totalTime = localStorage.getItem("totalTime");
+  $scope.totalFare = localStorage.getItem("totalFare");
 
 })
 
