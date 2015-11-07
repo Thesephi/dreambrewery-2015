@@ -11,12 +11,14 @@ var config = {
   dbport: 28015,
   dbname: 'drever',
   client1URL: process.env.client1URL,
-  testUserID: process.env.testUserID
+  testUserID: process.env.testUserID,
+  testDriverID: process.env.testDriverID
 }
 
 if(process.env.env === "development") {
   config.client1URL = 'http://localhost:' + config.appport;
   config.testUserID = '1c1954d6-b055-4574-8893-2addf92945f4';
+  config.testDriverID = '53364e81-2b22-4162-b9ec-8c6a95bbca15';
 }
 
 var client1 = restify.createJsonClient({
@@ -25,6 +27,7 @@ var client1 = restify.createJsonClient({
 
 /** CONSTANTS */
 var USER = 'user';
+var DRIVER = 'driver';
 var BOOKING = 'booking';
 
 var server = restify.createServer();
@@ -49,6 +52,30 @@ server.get('/test', function(req, res, next) {
 
 /** APIS */
 
+server.get('/user/get', function(req, res, next) {
+  var p = req.params;
+  dbconn(function(err, conn) {
+    if(err) return res.send(err);
+    r.table(USER)
+    .get(p.userID)
+    .run(conn, function(err, result) {
+      return handleSimpleTrans(err, result, conn, res);
+    });
+  });
+});
+
+server.get('/driver/get', function(req, res, next) {
+  var p = req.params;
+  dbconn(function(err, conn) {
+    if(err) return res.send(err);
+    r.table(DRIVER)
+    .get(p.driverID)
+    .run(conn, function(err, result) {
+      return handleSimpleTrans(err, result, conn, res);
+    });
+  });
+});
+
 server.get('/user/list', function(req, res, next) {
   dbconn(function(err, conn) {
     if(err) return res.send(err);
@@ -60,8 +87,15 @@ server.get('/user/list', function(req, res, next) {
   });
 });
 
-server.get('/insertTestUser', function(req, res, next) {
-  insertTestUser(res);
+server.get('/driver/list', function(req, res, next) {
+  dbconn(function(err, conn) {
+    if(err) return res.send(err);
+    r.table(DRIVER)
+    .coerceTo('array')
+    .run(conn, function(err, result) {
+      return handleSimpleTrans(err, result, conn, res);
+    });
+  });
 });
 
 server.get('/booking/list', function(req, res, next) {
@@ -81,6 +115,27 @@ server.get('/booking/get', function(req, res, next) {
     if(err) return res.send(err);
     r.table(BOOKING)
     .get(p.bookingID)
+    .run(conn, function(err, booking) {
+      if(err) return res.json(500, err.toString());
+
+      // inject driver's info into the booking before returning back to the client
+      client1.get(apiNS()+'/driver/get?driverID='+booking.driverID,
+      function(err, req, result, obj) {
+        if(err) return res.json(500, err.toString());
+        booking.driver = obj;
+        return handleSimpleTrans(err, booking, conn, res);
+      });
+
+    });
+  });
+});
+
+server.get('/booking/:id/delete', function(req, res, next) {
+  dbconn(function(err, conn) {
+    if(err) return res.json(500, err.toString());
+    r.table(BOOKING)
+    .get(req.params.id)
+    .delete()
     .run(conn, function(err, result) {
       return handleSimpleTrans(err, result, conn, res);
     });
@@ -108,6 +163,63 @@ server.post('/booking/create', function(req, res, next) {
   });
 });
 
+server.post('/booking/update', function(req, res, next) {
+  var p = req.params;
+  if('state' in p)
+    p.state = parseInt(p.state);
+
+  dbconn(function(err, conn) {
+    if(err) return res.json(500, err);
+    var q = r.table(BOOKING);
+    if(!p.all) {
+      q = q.get(p.bookingID);
+      delete p.bookingID;
+    }
+    q = q.update(p)
+    .run(conn, function(err, result) {
+      return handleSimpleTrans(err, result, conn, res);
+    });
+  });
+
+});
+
+server.get('/booking/complete', function(req, res, next) {
+  var data = {
+    bookingID: req.params.bookingID,
+    state: 2
+  };
+  client1.post(apiNS() + '/booking/update', data, function(err, req, result, obj) {
+    if(err) return res.json(500, err);
+    return res.send(obj);
+  });
+});
+
+server.get('/booking/cancel', function(req, res, next) {
+  var data = {
+    bookingID: req.params.bookingID,
+    state: -1
+  };
+  client1.post(apiNS() + '/booking/update', data, function(err, req, result, obj) {
+    if(err) return res.json(500, err);
+    return res.send(obj);
+  });
+});
+
+// params: bookingID, driverID
+server.get('/booking/accept', function(req, res, next) {
+  var p = req.params;
+  var data = {
+    bookingID: p.bookingID,
+    driverID: p.driverID
+  }
+  client1.post(apiNS() + '/booking/update', data, function(err, req, result, obj) {
+    if(err) return res.json(500, err);
+    return res.send(obj);
+  });
+});
+
+/** SEED DATA */
+
 server.post('/insertTestBooking', function(req, res, next) {
   var data = {
     userID: config.testUserID,
@@ -125,6 +237,15 @@ server.post('/insertTestBooking', function(req, res, next) {
     return res.send(obj);
   });
 });
+
+server.get('/insertTestUser', function(req, res, next) {
+  insertTestUser(res);
+});
+
+server.get('/insertTestDriver', function(req, res, next) {
+  insertTestDriver(res);
+});
+
 
 /** HELPERS */
 
@@ -159,6 +280,22 @@ function insertTestUser(res) {
   dbconn(function(err, conn) {
     if(err) return res.send(err);
     r.table(USER)
+    .insert({
+      name: randomName,
+      email: randomEmail
+    })
+    .run(conn, function(err, result) {
+      return handleSimpleTrans(err, result, conn, res);
+    });
+  });
+}
+
+function insertTestDriver(res) {
+  var randomName = Faker.Name.findName();
+  var randomEmail = Faker.Internet.email();
+  dbconn(function(err, conn) {
+    if(err) return res.send(err);
+    r.table(DRIVER)
     .insert({
       name: randomName,
       email: randomEmail
