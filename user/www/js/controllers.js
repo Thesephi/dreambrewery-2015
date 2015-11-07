@@ -11,6 +11,7 @@ angular.module('starter.controllers', [])
   init();
   function init(){
     $scope.startEnd = {};
+    $scope.payment = 'cash';
     $scope.mapOptions = {scrollwheel: false, disableDefaultUI: true};
     getGeoLocation();
     initValet();
@@ -121,10 +122,10 @@ angular.module('starter.controllers', [])
       draggable: false
     }
     $scope.vehicles = [];
-    //calc route
     calcRoute();
   };
 
+  //calc route
   var calcRoute = function(){
     maps = uiGmapGoogleMap;
     directionsService = new maps.DirectionsService();
@@ -153,6 +154,10 @@ angular.module('starter.controllers', [])
     })
   }
 
+  $scope.getValuePayment = function(item) {
+    window.localStorage['payment'] = item;
+  };
+
   //only in Singapore
   $scope.geocodeOptions = {
     componentRestrictions: {
@@ -169,6 +174,13 @@ angular.module('starter.controllers', [])
   $scope.userEnd = localStorage.getItem("userEnd");
   $scope.totalDistance = localStorage.getItem("totalDistance");
   $scope.totalTime = localStorage.getItem("totalTime");
+  $scope.totalFare = localStorage.getItem("totalFare");
+  $scope.payment = localStorage.getItem("payment");
+
+})
+
+.controller('WaitingCtrl', function($scope) {
+  console.log('WaitingCtrl');
   $scope.totalFare = localStorage.getItem("totalFare");
 
 })
