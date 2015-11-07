@@ -1,0 +1,15 @@
+{
+  "name": "drever-core-server",
+  "description": "Social Responsibility on Fun & Safe Drinking @ Dream Brewery Hackathon Impact Hub Singapore 2015",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "nodemon bootstrap.js drever-core-server"
+  },
+  "devDependencies": {
+    "nodemon": "^1.8.1"
+  },
+  "dependencies": {
+    "restify": "^4.0.3"
+  }
+}
