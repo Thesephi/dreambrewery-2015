@@ -175,16 +175,46 @@ angular.module('starter.controllers', [])
 
 .controller('IntroCtrl', function($scope) {
   console.log('halo');
-
+  $scope.$on("$ionicView.loaded", function() {
+    // set the logged in user
+    // so we don't have to deal with the boring sign-up, sign-in stuff
+    var user = {
+      email: "Joelle@gideon.biz",
+      id: "b26c346d-36fd-4649-aaca-00fd8b3867e7",
+      name: "Lennie Lueilwitz III",
+      avatar: "http://drever.codeatnite.com/uploads/user0.jpg"
+    }
+    localStorage.setItem('user', user);
+  });
 })
 
 .controller('GimmieTestCtrl', function($scope) {
   console.log('Gimmie Gimmie');
+
+  var user = localStorage.getItem('user');
+  var userID = user.id || "b26c346d-36fd-4649-aaca-00fd8b3867e7";
+
   $scope.$on("$ionicView.loaded", function() {
     var d = window.document;
     _gimmie = {
-        "endpoint": "http://drever.codeatnite.com/gimmie",
-        "key": "109dd42f1c3caf0d527df115d5f2"
+        "endpoint": "http://drever.codeatnite.com/api/gimmie?userID="+userID,
+        "key": "109dd42f1c3caf0d527df115d5f2",
+        "user": {
+          "name": user.name,
+          "realname": user.name,
+          "email": user.email,
+          "avatar": user.avatar
+        },
+        "events": {
+          // This function will get call when Widget is loaded.
+          "widgetLoad": function() {
+
+          },
+          // This function will get call when user click on the 'rate valet' button.
+          "rateValet": function() {
+            console.log('Congratulations. You got a reward for being generous in giving the Valet a rating!');
+          }
+        },
     };
 
     var js, id = "gimmie-widget",
