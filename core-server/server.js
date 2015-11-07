@@ -21,9 +21,6 @@ server.get('/test', function(req, res, next) {
   res.json(200, "Hi, Drever User!");
 });
 
-server.listen({
-  host: 'localhost',
-  port: 18865
-}, function() {
+server.listen(18865, function() {
   console.log('Drver Core Server listening at %s', server.url);
 });
