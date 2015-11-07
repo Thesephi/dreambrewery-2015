@@ -3,6 +3,7 @@
 var restify = require('restify');
 var r = require('rethinkdb');
 var Faker = require('Faker');
+var util = require('util');
 
 var config = {
   appport: 18865,
@@ -94,10 +95,10 @@ server.post('/insertTestBooking', function(req, res, next) {
     pickupTS: now(),
     isAllNight: false
   }
-  console.log('creating a test booking request: ' + data.toString());
+  console.log('creating a test booking request: ' + util.inspect(data));
   client1.post(apiNS() + '/booking/create', data, function(err, req, result, obj) {
     if(err) return res.json(500, err);
-    console.log('test booking request creation result: ' + obj.toString());
+    console.log('test booking request creation result: ' + util.inspect(obj));
     return res.send(obj);
   });
 });
