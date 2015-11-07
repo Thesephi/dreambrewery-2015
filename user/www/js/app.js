@@ -47,6 +47,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ion-google-place', '
     }
   })
 
+  .state('app.summary', {
+    url: '/summary',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/summary.html',
+        controller: 'SummaryCtrl'
+      }
+    }
+  })
+
   ;
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/intro');

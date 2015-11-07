@@ -37,7 +37,7 @@ body { font-family: 'AvenirLTStd' !important;}
 }
 .bar {
   &.bar-footer{ padding:0; height: 45px; border-top: 0;
-    .button { min-width: 50%;  line-height: 45px; float: left; font-weight: 700; height: 45px; border: none; padding: 0 2px; font-size: 17px;
+    .button { min-width: 50%;  line-height: 45px; float: left; font-weight: 700; height: 45px; border: none; padding: 0 2px; font-size: 17px; text-transform: uppercase;
       &:last-child { position: relative; top: 0; left: 0; }
       &.button-full { min-width: 100%; min-height: 40px; padding: 0; margin: 0; }
     }

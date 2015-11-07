@@ -152,6 +152,11 @@ angular.module('starter.controllers', [])
 
 })
 
+.controller('SummaryCtrl', function($scope) {
+  console.log('SummaryCtrl');
+
+})
+
 .controller('IntroCtrl', function($scope) {
   console.log('halo');
 
