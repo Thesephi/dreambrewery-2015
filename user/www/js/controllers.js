@@ -78,6 +78,7 @@ angular.module('starter.controllers', [])
           findNameLocation(lat,lng);
           $scope.map.center = { latitude: lat, longitude: lng }
           window.localStorage['userStartLatLng'] = JSON.stringify($scope.markerStart.coords);
+
         }
       }
     }
@@ -150,10 +151,10 @@ angular.module('starter.controllers', [])
         directionsDisplay.setDirections(response);
         var totalDistance = response.routes[0].legs[0].distance.value;
         var totalTime = response.routes[0].legs[0].duration.value;
-        var totalFare = 3.5;
+        var totalFare = 22;
         totalDistance = totalDistance / 1000;
         totalTime = totalTime / 60;
-        totalFare = totalFare + (totalDistance*0.5);
+        totalFare = totalFare + (totalDistance*1);
         window.localStorage['totalDistance'] = totalDistance;
         window.localStorage['totalTime'] = totalTime;
         window.localStorage['totalFare'] = totalFare;
@@ -178,14 +179,15 @@ angular.module('starter.controllers', [])
 .controller('SummaryCtrl', function($scope, Restangular, $state) {
   console.log('SummaryCtrl');
   $scope.userStart = localStorage.getItem("userStart");
-  $scope.userStartLatLng = localStorage.getItem("userStartLatLng");
+  $scope.userStartLatLng = JSON.parse(localStorage.getItem("userStartLatLng"));
   $scope.userEnd = localStorage.getItem("userEnd");
-  $scope.userEndLatLng = localStorage.getItem("userEndLatLng");
+  $scope.userEndLatLng = JSON.parse(localStorage.getItem("userEndLatLng"));
   $scope.totalDistance = localStorage.getItem("totalDistance");
   $scope.totalTime = localStorage.getItem("totalTime");
   $scope.totalFare = localStorage.getItem("totalFare");
   $scope.payment = localStorage.getItem("payment");
-  $scope.user = localStorage.getItem("dre_user");
+  $scope.user = JSON.parse(localStorage.getItem("dre_user"));
+  console.log($scope.user);
 
   $scope.getValuePayment = function(item) {
     window.localStorage['payment'] = item;
@@ -194,7 +196,7 @@ angular.module('starter.controllers', [])
   $scope.createBooking = function(){
     console.log('create');
     Restangular
-      .all("booking/create")
+      .all("api/booking/create")
       .post({
         userID: $scope.user.id,
         start_latitude: $scope.userStartLatLng.latitude,
@@ -205,11 +207,12 @@ angular.module('starter.controllers', [])
         totalTime: $scope.totalTime,
         totalFare: $scope.totalFare,
         isAllNight: false,
-         })
+      })
       .then(
         function(response) {
           console.log(response);
-          if(response.message.code == 200){
+          if(response.generated_keys){
+            window.localStorage['bookingID'] = response.generated_keys[0];
             $state.go('app.waiting');
           }
         },
@@ -217,6 +220,7 @@ angular.module('starter.controllers', [])
           console.log(error);
         }
       );
+
   }
 
   window.localStorage['dateStart'] = Date.now();
