@@ -183,7 +183,8 @@ server.post('/booking/create', function(req, res, next) {
       isAllNight: p.isAllNight || false, // true means the valet is for all niiight long
       payment: p.payment || 'card',
       totalFare: p.totalFare || 5,
-      totalTime: p.totalTime || 15
+      totalTime: p.totalTime || 15,
+      totalDistance: p.totalDistance || null
     })
     .run(conn, function(err, result) {
       return handleSimpleTrans(err, result, conn, res);
