@@ -47,6 +47,13 @@ function optionsRoute(req, res, next) {
 }
 server.opts('/\.*/', corsHandler, optionsRoute);
 
+server.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
+
 server.get('/test', function(req, res, next) {
   res.json(200, "Hi, Drever User!");
 });
@@ -133,7 +140,7 @@ server.get('/booking/get', function(req, res, next) {
     .run(conn, function(err, booking) {
       if(err) return res.json(500, err.toString());
 
-      if(booking.driverID) {
+      if(booking && booking.driverID) {
         // inject driver's info into the booking before returning back to the client
         client1.get(apiNS()+'/driver/get?driverID='+booking.driverID,
         function(err, req, result, obj) {
@@ -184,7 +191,8 @@ server.post('/booking/create', function(req, res, next) {
       payment: p.payment || 'card',
       totalFare: p.totalFare || 5,
       totalTime: p.totalTime || 15,
-      totalDistance: p.totalDistance || null
+      totalDistance: p.totalDistance || null,
+      state: 0
     })
     .run(conn, function(err, result) {
       return handleSimpleTrans(err, result, conn, res);
