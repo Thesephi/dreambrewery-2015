@@ -3,8 +3,8 @@
     <div class="rating-box">
       <div class="rating-inner">
         <div class="valet-info text-center">
-          <img src="img/michael.png" alt="" width="100" class="avatar">
-          <h2>Gabriel Philipecki</h2>
+          <img ng-src="{{driver.avatar}}" alt="" width="100" class="avatar">
+          <h2>{{driver.name}}</h2>
           <p>{{dateStart | date: 'MMM d, y h:mm a'}}</p>
           <div class="fare">SGD {{totalFare | number: 1}}</div>
         </div>

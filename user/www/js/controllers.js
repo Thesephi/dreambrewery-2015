@@ -220,19 +220,52 @@ angular.module('starter.controllers', [])
           console.log(error);
         }
       );
-
   }
 
   window.localStorage['dateStart'] = Date.now();
-  // check booking
-
 })
 
-.controller('WaitingCtrl', function($scope) {
+.controller('WaitingCtrl', function($scope, Restangular, $interval, $ionicLoading, $state) {
   console.log('WaitingCtrl');
   $scope.totalFare = localStorage.getItem("totalFare");
   $scope.payment = localStorage.getItem("payment");
+  $scope.bookingID = window.localStorage['bookingID'];
+  $scope.showInfo = false;
+  $ionicLoading.show({ template: '<ion-spinner></ion-spinner><br> Waiting for valet' });
+  console.log($scope.bookingID);
   //get info valet & save it for next state
+
+  function checkStatusBooking() {
+    Restangular
+      .all("api/booking/get?bookingID="+ $scope.bookingID + "&r=" + Math.random() )
+      .get('')
+      .then(
+        function(response) {
+          console.log(response);
+          if(!response.state || response.state == 0){
+            // no valet app
+          } else if(response.state == -1){
+            //cancel
+          } else if(response.state == 1){
+            // valet receive booking, show infos
+            $scope.showInfo = true;
+            $ionicLoading.hide();
+            $scope.driver = response.driver;
+            window.localStorage['driver'] = JSON.stringify($scope.driver);
+            // $response.state.go('app.');
+          } else if(response.state == 2){
+            // completed
+            $ionicLoading.hide();
+            $interval.cancel(checkStatusInterval);
+            $state.go('app.rating');
+          }
+        },
+        function(error) {
+          console.log(error);
+        }
+      );
+  }
+  checkStatusInterval =  $interval(checkStatusBooking, 5000);
 
 })
 
@@ -240,6 +273,7 @@ angular.module('starter.controllers', [])
   console.log('RatingCtrl');
   $scope.totalFare = localStorage.getItem("totalFare");
   $scope.dateStart = localStorage.getItem("dateStart");
+  $scope.driver = JSON.parse(localStorage.getItem("driver"));
 
   var selectedRating;
   $scope.ratingsObject = {
