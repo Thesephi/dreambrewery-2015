@@ -285,7 +285,8 @@ server.get('/booking/accept', function(req, res, next) {
   var p = req.params;
   var data = {
     bookingID: p.bookingID,
-    driverID: p.driverID
+    driverID: p.driverID,
+    state: 1
   }
   client1.post(apiNS() + '/booking/update', data, function(err, req, result, obj) {
     if(err) return res.json(500, err);
