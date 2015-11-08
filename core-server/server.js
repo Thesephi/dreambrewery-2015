@@ -119,6 +119,7 @@ server.get('/booking/list', function(req, res, next) {
   dbconn(function(err, conn) {
     if(err) return res.send(err);
     r.table(BOOKING)
+    .orderBy('createdTS')
     .coerceTo('array')
     .run(conn, function(err, result) {
       if('state' in p) {
@@ -207,6 +208,7 @@ server.get('/booking/search', function(req, res, next) {
     if(err) return res.json(500, err);
     r.table(BOOKING)
     .getNearest(r.point(parseFloat(p.lng), parseFloat(p.lat)), {index: 'startPoint'})
+    .orderBy('createdTS')
     .run(conn, function(err, result) {
       if(result.length > 0) {
         var ret;
