@@ -1,3 +1,5 @@
+var host = "drever.codeatnite.com/";
+var hostUrl = "http://" + host;
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
@@ -75,9 +77,11 @@ angular.module('starter.controllers', [])
           lng = $scope.markerStart.coords.longitude;
           findNameLocation(lat,lng);
           $scope.map.center = { latitude: lat, longitude: lng }
+          window.localStorage['userStartLatLng'] = JSON.stringify($scope.markerStart.coords);
         }
       }
     }
+
     // console.log($scope.markerStart)
   }
 
@@ -105,7 +109,8 @@ angular.module('starter.controllers', [])
     $scope.markerStart.coords = { latitude: lat, longitude: lng }
     $scope.markerStart.latlng = lat+','+lng ;
     $scope.markerStart.coord =  { lat: lat, lng: lng }
-     window.localStorage['userStart'] = $scope.startEnd.start.formatted_address;
+    window.localStorage['userStart'] = $scope.startEnd.start.formatted_address;
+    window.localStorage['userStartLatLng'] = JSON.stringify($scope.markerStart.coords);
 
   };
   // search end point
@@ -119,6 +124,7 @@ angular.module('starter.controllers', [])
       coord: { lat: lat, lng: lng }
     }
     window.localStorage['userEnd'] = $scope.startEnd.end.formatted_address;
+    window.localStorage['userEndLatLng'] = JSON.stringify($scope.markerEnd.coords);
     $scope.markerStart.options = {
       draggable: false
     }
@@ -169,19 +175,47 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('SummaryCtrl', function($scope) {
+.controller('SummaryCtrl', function($scope, Restangular) {
   console.log('SummaryCtrl');
   $scope.userStart = localStorage.getItem("userStart");
+  $scope.userStartLatLng = localStorage.getItem("userStartLatLng");
   $scope.userEnd = localStorage.getItem("userEnd");
+  $scope.userEndLatLng = localStorage.getItem("userEndLatLng");
   $scope.totalDistance = localStorage.getItem("totalDistance");
   $scope.totalTime = localStorage.getItem("totalTime");
   $scope.totalFare = localStorage.getItem("totalFare");
   $scope.payment = localStorage.getItem("payment");
+  $scope.user = localStorage.getItem("dre_user");
 
   $scope.getValuePayment = function(item) {
     window.localStorage['payment'] = item;
   };
   // create booking here with date
+   $scope.createBooking = function(){
+    console.log('create');
+    Restangular
+      .all("booking/create")
+      .post({
+        userID: $scope.user.id,
+        start_latitude: $scope.userStartLatLng.latitude,
+        start_longitude: $scope.userStartLatLng.longitude,
+        end_latitude: $scope.userEndLatLng.latitude,
+        end_longitude: $scope.userEndLatLng.longitude,
+        totalDistance: $scope.totalDistance,
+        totalTime: $scope.totalTime,
+        totalFare: $scope.totalFare,
+        isAllNight: false,
+         })
+      .then(
+        function(response) {
+          console.log(response);
+        },
+        function(error) {
+          console.log(error);
+        }
+      );
+  }
+
   window.localStorage['dateStart'] = Date.now();
   // check booking
 
@@ -228,6 +262,7 @@ angular.module('starter.controllers', [])
     }
     localStorage.setItem('dre_user', JSON.stringify(user));
   });
+
 })
 
 .controller('GimmieTestCtrl', function($scope, $http, $ionicPopup) {

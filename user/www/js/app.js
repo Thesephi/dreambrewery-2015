@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'ion-google-place', 'uiGmapgoogle-maps', 'ionic-ratings'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ion-google-place', 'uiGmapgoogle-maps', 'ionic-ratings', 'restangular'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,7 +22,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ion-google-place', '
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, RestangularProvider) {
   $stateProvider
 
   .state('intro', {
@@ -87,6 +87,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ion-google-place', '
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/intro');
   $ionicConfigProvider.navBar.alignTitle('center');
+  RestangularProvider.setBaseUrl(hostUrl);
+  RestangularProvider.setDefaultHeaders({
+    'Access-Control-Allow-Origin': host,
+    'Access-Control-Allow-Methods' : 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Accept, X-Requested-With',
+    'Access-Control-Allow-Credentials': 'true'
+  });
 })
 .config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
