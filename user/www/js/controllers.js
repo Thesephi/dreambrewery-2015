@@ -347,6 +347,25 @@ angular.module('starter.controllers', [])
     });
   }
 
+  $scope.afterLocoPicked = function() {
+    var eventName = "pick_loco";
+    $http({
+      url: "http://drever.codeatnite.com/api/gimmie/trigger?eventName="+eventName+"&userID="+userID
+    }).then(function(result) {
+      console.log(result.data.response);
+      $scope.showGimmie({
+        success: true,
+        payload: result.data.response
+      });
+    }, function(err) {
+      console.log(err);
+      $scope.showGimmie({
+        success: false,
+        payload: err
+      });
+    });
+  }
+
 })
 
 ;

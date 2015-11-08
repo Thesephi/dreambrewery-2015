@@ -180,7 +180,11 @@ server.post('/booking/create', function(req, res, next) {
       end_latitude: p.end_latitude,
       endPoint: r.point(parseFloat(p.end_longitude), parseFloat(p.end_latitude)),
       pickupTS: p.pickupTS || now(),
-      isAllNight: p.isAllNight || false // true means the valet is for all niiight long
+      isAllNight: p.isAllNight || false, // true means the valet is for all niiight long
+      payment: p.payment || 'card',
+      totalFare: p.totalFare || 5,
+      totalTime: p.totalTime || 15,
+      totalDistance: p.totalDistance || null
     })
     .run(conn, function(err, result) {
       return handleSimpleTrans(err, result, conn, res);
