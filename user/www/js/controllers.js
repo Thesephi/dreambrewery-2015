@@ -273,11 +273,14 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('RatingCtrl', function($scope) {
+.controller('RatingCtrl', function($scope, $http, $ionicPopup) {
   console.log('RatingCtrl');
+  $scope.showRatingBox = true;
   $scope.totalFare = localStorage.getItem("totalFare");
   $scope.dateStart = localStorage.getItem("dateStart");
   $scope.driver = JSON.parse(localStorage.getItem("driver"));
+
+  setupGimmie($scope, $http, $ionicPopup);
 
   var selectedRating;
   $scope.ratingsObject = {
@@ -312,7 +315,12 @@ angular.module('starter.controllers', [])
 
 .controller('GimmieTestCtrl', function($scope, $http, $ionicPopup) {
   console.log('Gimmie Gimmie');
+  setupGimmie($scope, $http, $ionicPopup);
+})
 
+;
+
+function setupGimmie($scope, $http, $ionicPopup) {
   var user = JSON.parse(localStorage.getItem('dre_user'));
   var userID = user.id || "b26c346d-36fd-4649-aaca-00fd8b3867e7";
 
@@ -357,7 +365,7 @@ angular.module('starter.controllers', [])
     var title, template;
     if(data.success) {
       title = "Congratulations";
-      template = "<div style='text-align: center;'>" + data.payload.actions[0].message + "<br />Total pts: " + data.payload.user.awarded_points + "</div>";
+      template = "<div style='text-align: center;'><img style='width:100%; height:auto;' src='http://drever.codeatnite.com/uploads/lucha.jpg' />" + data.payload.actions[0].message + "<br />Total pts: " + data.payload.user.awarded_points + "<br /><br />Also you got 1 free beer from our Lucha & Gimmie.io partners :)</div>";
     } else {
       title = "Hang on...";
       template = "You earned some points just now, but the system failed to acknowledge that. We're sorry!";
@@ -368,7 +376,7 @@ angular.module('starter.controllers', [])
       template: template
     });
     alertPopup.then(function(res) {
-      //console.log('Thank you for not eating my delicious ice cream cone');
+      console.log('Thank you!');
     });
 
  };
@@ -379,6 +387,7 @@ angular.module('starter.controllers', [])
       url: "http://drever.codeatnite.com/api/gimmie/trigger?eventName="+eventName+"&userID="+userID
     }).then(function(result) {
       console.log(result.data.response);
+      $scope.showRatingBox = false;
       $scope.showGimmie({
         success: true,
         payload: result.data.response
@@ -410,7 +419,4 @@ angular.module('starter.controllers', [])
       });
     });
   }
-
-})
-
-;
+}
