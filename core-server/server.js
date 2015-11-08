@@ -140,7 +140,7 @@ server.get('/booking/get', function(req, res, next) {
     .run(conn, function(err, booking) {
       if(err) return res.json(500, err.toString());
 
-      if(booking.driverID) {
+      if(booking && booking.driverID) {
         // inject driver's info into the booking before returning back to the client
         client1.get(apiNS()+'/driver/get?driverID='+booking.driverID,
         function(err, req, result, obj) {
