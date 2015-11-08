@@ -1,0 +1,77 @@
+@font-face {
+  font-family: 'AvenirLTStd';
+  src: url('../fonts/AvenirLTStd-Medium.eot');
+  src: url('../fonts/AvenirLTStd-Medium.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/AvenirLTStd-Medium.woff') format('woff'),
+    url('../fonts/AvenirLTStd-Medium.ttf')  format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirLTStd';
+  src: url('../fonts/AvenirLTStd-Light.eot');
+  src: url('../fonts/AvenirLTStd-Light.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/AvenirLTStd-Light.woff') format('woff'),
+    url('../fonts/AvenirLTStd-Light.ttf')  format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AvenirLTStd-Heavy';
+  src: url('../fonts/AvenirLTStd-Heavy.eot');
+  src: url('../fonts/AvenirLTStd-Heavy.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/AvenirLTStd-Heavy.woff') format('woff'),
+    url('../fonts/AvenirLTStd-Heavy.ttf')  format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 , input, button, select, textarea{ font-family: 'AvenirLTStd' !important; }
+body { font-family: 'AvenirLTStd' !important;}
+.center-all { display: -webkit-flex; display: -ms-flexbox;display: flex;-webkit-align-items: center; -ms-flex-align: center; align-items: center; -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center; width: 100%;
+}
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.button-blue { background: #0075d6; border-color: #0075d6; color: #fff;
+  &:hover { color: #fff }
+}
+.button-orange { background: #f37456; border-color: #f37456; color: #fff;
+  &:hover { color: #fff }
+}
+.bg-blur { background-image: url(../img/bg-blur.jpg); -webkit-background-size: cover; background-size: cover; height: 100vh; width: 100%; }
+.bar {
+  &.bar-footer{ padding:0; height: 45px; border-top: 0;
+    .button { min-width: 50%;  line-height: 45px; float: left; font-weight: 700; height: 45px; border: none; padding: 0 2px; font-size: 17px; text-transform: uppercase;
+      &:last-child { position: relative; top: 0; left: 0; }
+      &.button-full { min-width: 100%; min-height: 40px; padding: 0; margin: 0; }
+    }
+  }
+}
+.has-footer { bottom: 40px; }
+.bar.bar-stable { background: #24498c;
+  .title { color: #fff; }
+  .button.button-clear { color: #fff; }
+}
+.waiting-box { padding: 20px;
+  .waiting-inner { background: #fff; border-radius: 10px; border: solid 2px #cecece; }
+  .valet-info { color: #737373; padding: 20px 0;
+    h4 { color: #fb6542; margin-top: 0; margin-bottom: 10px; }
+    img.avatar { border-radius: 50%; border: solid 4px #cbcbcb;margin-bottom: 5px; display: inline-block; }
+    h2 { color: #737373; font-weight: 700; font-size: 22px; margin: 0 0 5px 0; }
+  }
+  .trip-info { background: #e4eff9; padding: 10px 0;
+    .row { padding: 3px 15px ; }
+    h4 { color: #686868; margin: 0; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+    p { color: #a2a2a2; margin-bottom: 3px; margin-top: 0; font-size: 13px;}
+  }
+  .more-info { color: #737373; font-size: 16px; line-height: 35px; height: 50px;
+    img { margin-left: 5px; }
+  }
+
+}
+
+
+
+
+
