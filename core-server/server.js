@@ -191,7 +191,8 @@ server.post('/booking/create', function(req, res, next) {
       payment: p.payment || 'card',
       totalFare: p.totalFare || 5,
       totalTime: p.totalTime || 15,
-      totalDistance: p.totalDistance || null
+      totalDistance: p.totalDistance || null,
+      state: 0
     })
     .run(conn, function(err, result) {
       return handleSimpleTrans(err, result, conn, res);
