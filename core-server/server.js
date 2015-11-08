@@ -119,6 +119,7 @@ server.get('/booking/list', function(req, res, next) {
   dbconn(function(err, conn) {
     if(err) return res.send(err);
     r.table(BOOKING)
+    .orderBy(r.desc('createdTS'))
     .coerceTo('array')
     .run(conn, function(err, result) {
       if('state' in p) {
@@ -145,8 +146,19 @@ server.get('/booking/get', function(req, res, next) {
         client1.get(apiNS()+'/driver/get?driverID='+booking.driverID,
         function(err, req, result, obj) {
           if(err) return res.json(500, 'Cannot find driver data for this booking: '+err.toString());
+
           booking.driver = obj;
-          return handleSimpleTrans(err, booking, conn, res);
+
+          client1.get(apiNS()+'/user/get?userID='+booking.userID,
+          function(err1, req1, result1, obj1) {
+            if(err) return res.json(500, 'Cannot find user data for this booking: '+err.toString());
+
+            booking.user = obj1;
+
+            return handleSimpleTrans(err, booking, conn, res);
+
+          });
+
         });
       } else {
         return handleSimpleTrans(err, booking, conn, res);
@@ -192,7 +204,9 @@ server.post('/booking/create', function(req, res, next) {
       totalFare: p.totalFare || 5,
       totalTime: p.totalTime || 15,
       totalDistance: p.totalDistance || null,
-      state: 0
+      state: 0,
+      userStart: p.userStart || null,
+      userEnd: p.userEnd || null
     })
     .run(conn, function(err, result) {
       return handleSimpleTrans(err, result, conn, res);
@@ -207,6 +221,7 @@ server.get('/booking/search', function(req, res, next) {
     if(err) return res.json(500, err);
     r.table(BOOKING)
     .getNearest(r.point(parseFloat(p.lng), parseFloat(p.lat)), {index: 'startPoint'})
+    .orderBy(r.desc('createdTS'))
     .run(conn, function(err, result) {
       if(result.length > 0) {
         var ret;
@@ -283,7 +298,8 @@ server.get('/booking/accept', function(req, res, next) {
   var p = req.params;
   var data = {
     bookingID: p.bookingID,
-    driverID: p.driverID
+    driverID: p.driverID,
+    state: 1
   }
   client1.post(apiNS() + '/booking/update', data, function(err, req, result, obj) {
     if(err) return res.json(500, err);
