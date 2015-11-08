@@ -175,7 +175,7 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('SummaryCtrl', function($scope, Restangular) {
+.controller('SummaryCtrl', function($scope, Restangular, $state) {
   console.log('SummaryCtrl');
   $scope.userStart = localStorage.getItem("userStart");
   $scope.userStartLatLng = localStorage.getItem("userStartLatLng");
@@ -191,7 +191,7 @@ angular.module('starter.controllers', [])
     window.localStorage['payment'] = item;
   };
   // create booking here with date
-   $scope.createBooking = function(){
+  $scope.createBooking = function(){
     console.log('create');
     Restangular
       .all("booking/create")
@@ -209,6 +209,9 @@ angular.module('starter.controllers', [])
       .then(
         function(response) {
           console.log(response);
+          if(response.message.code == 200){
+            $state.go('app.waiting');
+          }
         },
         function(error) {
           console.log(error);
