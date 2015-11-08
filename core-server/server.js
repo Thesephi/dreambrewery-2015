@@ -155,11 +155,23 @@ server.get('/booking/get', function(req, res, next) {
 
             booking.user = obj1;
 
-            return handleSimpleTrans(err, booking, conn, res);
+            return handleSimpleTrans(err1, booking, conn, res);
 
           });
 
         });
+      } else if(booking && booking.userID) {
+
+        client1.get(apiNS()+'/user/get?userID='+booking.userID,
+        function(err1, req1, result1, obj1) {
+          if(err) return res.json(500, 'Cannot find user data for this booking: '+err.toString());
+
+          booking.user = obj1;
+
+          return handleSimpleTrans(err1, booking, conn, res);
+
+        });
+
       } else {
         return handleSimpleTrans(err, booking, conn, res);
       }
