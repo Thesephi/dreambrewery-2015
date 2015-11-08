@@ -207,6 +207,9 @@ angular.module('starter.controllers', [])
         totalTime: $scope.totalTime,
         totalFare: $scope.totalFare,
         isAllNight: false,
+        userStart: $scope.userStart,
+        userEnd: $scope.userEnd,
+
       })
       .then(
         function(response) {
