@@ -349,7 +349,8 @@ input.ion-google-place[readonly] {
       border-color: #3399ff;
       background: #3399ff;
       font-weight: 700;
-      font-size: 20px; }
+      font-size: 20px;
+      line-height: 45px; }
     .rating-box .rating-info .ionic_ratings .icon {
       font-size: 40px;
       margin-right: 10px;
