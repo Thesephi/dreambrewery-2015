@@ -368,4 +368,9 @@ input.ion-google-place[readonly] {
     background-size: cover;
     background-position: center center; }
 
+.bar .title.header-item {
+  text-align: center; }
+  .bar .title.header-item .logo-title {
+    margin-top: 8px; }
+
 /*# sourceMappingURL=style.css.map */

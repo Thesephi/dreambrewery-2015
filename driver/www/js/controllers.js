@@ -4,6 +4,7 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope) {
   console.log('AppCtrl');
+  $scope.navTitle = '<img class="logo-title" src="img/logo.png" width="80" />';
 })
 
 .controller('SearchCtrl', function($scope, Restangular, $interval, $ionicLoading) {
@@ -41,6 +42,7 @@ angular.module('starter.controllers', [])
       );
     }
     checkStatusInterval =  $interval(checkStatusBooking, 5000);
+
     function getBooking() {
       Restangular
       .all("api/booking/get?bookingID="+ $scope.bookingID + "&r=" + Math.random() )

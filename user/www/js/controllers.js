@@ -4,6 +4,7 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   window.localStorage.setItem('userID', 'thanhtung2806@gmail.com');
+  $scope.navTitle = '<img class="logo-title" src="img/logo.png" width="80" />';
 })
 
 .controller('SearchCtrl', function($scope, uiGmapGoogleMapApi, $timeout, $filter) {
