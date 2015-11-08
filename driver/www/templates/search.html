@@ -1,5 +1,42 @@
-<ion-view view-title="Search">
-  <ion-content>
-    <h1>Search</h1>
-  </ion-content>
+<ion-view view-title="Search" class="bg-blur">
+  <div class="content has-header has-footer ">
+    <div class="waiting-box">
+      <div class="waiting-inner">
+        <div class="valet-info text-center">
+          <h4>New pick-up request</h4>
+          <img src="img/kang.png" alt="" width="100" class="avatar">
+          <h2>Phua Chu Kang</h2>
+        </div>
+        <div class="trip-info">
+          <div class="start row center-all">
+            <div class="col-10">
+              <img src="img/pickup-icon-2.png" alt="" width="27">
+            </div>
+            <div class="col">
+              <p>PICK-UP</p>
+              <h4>{{userStart}} Blk 54, Marine Terrace, Singapore</h4>
+            </div>
+          </div>
+          <div class="end row center-all">
+            <div class="col-10">
+              <img src="img/drop-off-icon-2.png" alt="" width="25">
+            </div>
+            <div class="col">
+              <p>DROP-OFF</p>
+              <h4>{{userEnd}} Blk 54, Marine Terrace, Singapore</h4>
+            </div>
+          </div>
+        </div>
+        <div class="more-info row">
+          <div class="col-70 col">
+            Payment by <strong>Cash</strong>
+          </div>
+          <div class="col text-right">
+            <img src="img/phone-icon.png" alt="" width="30">
+            <img src="img/sms-icon.png" alt="" width="30">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-view>
