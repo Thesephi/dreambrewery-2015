@@ -233,9 +233,7 @@ server.get('/booking/search', function(req, res, next) {
     if(err) return res.json(500, err);
     r.table(BOOKING)
     .getNearest(r.point(parseFloat(p.lng), parseFloat(p.lat)), {index: 'startPoint'})
-    .orderBy(function(mess) {
-      return mess('doc')('createdTS');
-    })
+    .orderBy(r.desc(r.row('doc')('createdTS')))
     .run(conn, function(err, result) {
       if(result.length > 0) {
         var ret;
