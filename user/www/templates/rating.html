@@ -1,6 +1,6 @@
 <ion-view view-title="Rating">
   <div class="content has-header has-footer bg-blur">
-    <div class="rating-box">
+    <div class="rating-box" ng-show="showRatingBox">
       <div class="rating-inner">
         <div class="valet-info text-center">
           <img ng-src="{{driver.avatar}}" alt="" width="100" class="avatar">
@@ -11,7 +11,7 @@
         <div class="rating-info text-center">
           <h3>How was your ride?</h3>
           <ionic-ratings ratingsobj='ratingsObject'></ionic-ratings>
-          <a href="#" class="button button-blue button-full">SUBMIT</a>
+          <a href="#" ng-click="afterValetRated();" class="button button-blue button-full">SUBMIT</a>
 
         </div>
       </div>
