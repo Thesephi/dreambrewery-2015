@@ -158,7 +158,7 @@ server.get('/booking/get', function(req, res, next) {
             return handleSimpleTrans(err, booking, conn, res);
 
           });
-          
+
         });
       } else {
         return handleSimpleTrans(err, booking, conn, res);
@@ -204,7 +204,9 @@ server.post('/booking/create', function(req, res, next) {
       totalFare: p.totalFare || 5,
       totalTime: p.totalTime || 15,
       totalDistance: p.totalDistance || null,
-      state: 0
+      state: 0,
+      userStart: p.userStart || null,
+      userEnd: p.userEnd || null
     })
     .run(conn, function(err, result) {
       return handleSimpleTrans(err, result, conn, res);
